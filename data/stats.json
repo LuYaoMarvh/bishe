@@ -1,0 +1,50 @@
+{
+  "total_queries": 5,
+  "success_queries": 5,
+  "failed_queries": 0,
+  "clarification_count": 2,
+  "total_response_time": 80.79278683662415,
+  "query_history": [
+    {
+      "question": "查询所有客户的姓名和邮箱",
+      "success": true,
+      "response_time": 13.867605209350586,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-02-21T16:21:23.391772"
+    },
+    {
+      "question": "查询人物",
+      "success": true,
+      "response_time": 28.375946283340454,
+      "is_clarification": true,
+      "error": null,
+      "timestamp": "2026-02-21T16:23:43.858924"
+    },
+    {
+      "question": "你是谁",
+      "success": true,
+      "response_time": 3.4609615802764893,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-02-22T12:55:04.864752"
+    },
+    {
+      "question": "查找销售额最高的前10个客户",
+      "success": true,
+      "response_time": 15.186039924621582,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-02-22T12:55:31.004824"
+    },
+    {
+      "question": "查询人物",
+      "success": true,
+      "response_time": 19.902233839035034,
+      "is_clarification": true,
+      "error": null,
+      "timestamp": "2026-02-22T12:58:30.295678"
+    }
+  ],
+  "last_updated": "2026-02-22T12:58:30.296677"
+}
