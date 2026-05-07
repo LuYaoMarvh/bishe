@@ -1,5 +1,5 @@
 """
-NL2SQL Web 应用 - Flask 后端（更新版）
+NL2SQL Web 应用 - Flask 后端
 集成统计追踪和真实数据更新
 """
 from flask import Flask, render_template, request, jsonify, session
@@ -501,11 +501,11 @@ def test_database_connection():
 
 if __name__ == '__main__':
     print("=" * 60)
-    print("🚀 NL2SQL Web 应用启动中...")
+    print(" NL2SQL Web 应用启动中...")
     print("=" * 60)
-    print(f"📍 访问地址: http://localhost:5000")
-    print(f"📊 仪表盘: http://localhost:5000")
-    print(f"💡 提示: 按 Ctrl+C 停止服务器")
+    print(f" 访问地址: http://localhost:5000")
+    print(f"仪表盘: http://localhost:5000")
+    print(f" 提示: 按 Ctrl+C 停止服务器")
     print("=" * 60)
 
     app.run(

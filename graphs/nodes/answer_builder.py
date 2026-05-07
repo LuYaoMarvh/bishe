@@ -195,7 +195,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
     
     # 如果是聊天响应，直接使用LLM的回复
     if is_chat_response and chat_response:
-        print("💬 使用聊天回复作为答案")
+        print("使用聊天回复作为答案")
         # 聊天响应已经在 generate_sql_node 中添加到上下文记忆
         return {
             **state,
@@ -207,7 +207,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
     # 多种解释
     # Check if execution result exists
     if not execution_result:
-        print("⚠️  No execution result available")
+        print("  No execution result available")
         return {
             **state,
             "answer": "无法生成答案：SQL查询尚未执行或执行失败。",
@@ -217,7 +217,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
     # Check if execution was successful
     if not execution_result.get("ok"):
         error_msg = execution_result.get("error", "未知错误")
-        print(f"⚠️  SQL execution failed: {error_msg}")
+        print(f"  SQL execution failed: {error_msg}")
         return {
             **state,
             "answer": f"查询执行失败：{error_msg}。请检查SQL查询是否正确，或联系管理员。",
@@ -237,7 +237,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
     try:
         prompt_template = load_prompt_template("answer")
     except FileNotFoundError:
-        print("⚠️  Answer prompt template not found, using default")
+        print("  Answer prompt template not found, using default")
         # Fallback to simple answer
         if data_summary.get("type") == "empty":
             answer = "查询结果为空，没有找到匹配的数据。"

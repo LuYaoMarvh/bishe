@@ -105,7 +105,7 @@ def validate_sql_node(state: NL2SQLState) -> NL2SQLState:
                         validation_result["warnings"].append(
                             f"Non-SELECT statement detected: {first_stmt.kind}"
                         )
-                        print(f"⚠️  Warning: {validation_result['warnings'][-1]}")
+                        print(f"Warning: {validation_result['warnings'][-1]}")
     
     except sqlglot.errors.ParseError as e:
         error_msg = f"SQL parse error: {str(e)}"

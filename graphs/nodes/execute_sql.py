@@ -1,8 +1,8 @@
 """
 SQL Execution Node for NL2SQL system.
-M2: Executes SQL queries against the database using Function Call.
-M4: Added SQL validation before execution.
-M5: Added sandbox safety checks and structured error handling.
+Executes SQL queries against the database using Function Call.
+Added SQL validation before execution.
+Added sandbox safety checks and structured error handling.
 """
 import sys
 from pathlib import Path
@@ -23,7 +23,7 @@ def execute_sql_node(state: NL2SQLState) -> NL2SQLState:
     """
     Execute SQL query against the database with sandbox security.
 
-    M5: Now includes sandbox safety checks and structured error reporting.
+    Now includes sandbox safety checks and structured error reporting.
 
     Args:
         state: Current NL2SQL state

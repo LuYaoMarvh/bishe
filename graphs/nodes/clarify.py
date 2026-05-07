@@ -1,6 +1,7 @@
 """
 Dialog Clarification Node for NL2SQL system.
-M7: Supports multi-turn dialog and clarification questions.
+Supports multi-turn dialog and clarification questions.
+在生成sql之前看是否存在歧义
 """
 import sys
 from pathlib import Path
@@ -124,8 +125,7 @@ def check_if_needs_clarification(question: str, candidate_sql: Optional[str] = N
 def clarify_node(state: NL2SQLState) -> NL2SQLState:
     """
     澄清节点：判断是否需要澄清，如果需要则生成澄清问题
-    
-    M7: Supports multi-turn dialog and clarification questions.
+
     使用已有的 dialog_history 字段维护对话历史。
     """
     question = state.get("question", "")
@@ -134,14 +134,13 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
     clarification_count = state.get("clarification_count", 0)
     max_clarifications = state.get("max_clarifications", 3)
     
-    # M7: 使用已有的 dialog_history 字段
-    # M9.75: 使用上下文记忆管理器
+    #  使用已有的 dialog_history 字段，上下文记忆管理器
     session_id = state.get("session_id")
     from graphs.utils.context_memory import get_context_manager
     context_manager = get_context_manager(session_id) if session_id else None
     
     dialog_history = state.get("dialog_history") or []
-    user_id = state.get("user_id")  # M7: 使用已有的 user_id 字段
+    user_id = state.get("user_id")  #  使用已有的 user_id 字段
     
     print(f"\n=== Clarify Node (M7/M9.75) ===")
     print(f"Question: {question}")
@@ -169,7 +168,7 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
         
         normalized_question = f"{original_question}（{clarification_answer}）"
         
-        # M9.75: 使用上下文记忆管理器更新对话历史
+        # 使用上下文记忆管理器更新对话历史
         if context_manager:
             context_manager.add_clarification_answer(clarification_answer)
             updated_history = context_manager.get_all_history()

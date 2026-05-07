@@ -8,7 +8,7 @@ system:
   log_level: "INFO"
 
 # LLM Configuration
-# 支持的提供商: deepseek, qwen, openai
+# 支持deepseek, qwen, openai
 llm:
   provider: "qwen"  
   temperature: 0.0
@@ -33,7 +33,7 @@ llm:
     base_url: "https://api.openai.com/v1"
     # API Key 从环境变量读取
 
-# Database Configuration (M2+)
+# Database Configuration
 database:
   type: "mysql"
   host: "localhost"
@@ -45,7 +45,7 @@ database:
   max_rows: 1000
   timeout: 10
 
-# RAG Configuration (M6+)
+# RAG Configuration
 rag:
   enabled: false
   vector_store: "faiss"
@@ -64,7 +64,7 @@ graph:
   enable_logging: true
   trace_enabled: true
 
-# Security Configuration (M5+)
+# Security Configuration
 sandbox:
   enabled: true
   default_limit: 200  # Default LIMIT if not specified

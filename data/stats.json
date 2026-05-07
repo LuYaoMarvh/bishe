@@ -1,9 +1,9 @@
 {
-  "total_queries": 5,
-  "success_queries": 5,
+  "total_queries": 9,
+  "success_queries": 9,
   "failed_queries": 0,
   "clarification_count": 2,
-  "total_response_time": 80.79278683662415,
+  "total_response_time": 186.1430802345276,
   "query_history": [
     {
       "question": "查询所有客户的姓名和邮箱",
@@ -44,7 +44,39 @@
       "is_clarification": true,
       "error": null,
       "timestamp": "2026-02-22T12:58:30.295678"
+    },
+    {
+      "question": "查询所有客户的姓名和邮箱",
+      "success": true,
+      "response_time": 55.34717583656311,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-03-16T15:53:32.076832"
+    },
+    {
+      "question": "显示最近三个月的销售趋势",
+      "success": true,
+      "response_time": 24.766623973846436,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-03-16T16:13:50.875785"
+    },
+    {
+      "question": "查找销售额最高的前10个客户",
+      "success": true,
+      "response_time": 9.353368282318115,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-07T19:23:41.856347"
+    },
+    {
+      "question": "统计每个客户的订单数量",
+      "success": true,
+      "response_time": 15.883125305175781,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-07T20:52:50.047979"
     }
   ],
-  "last_updated": "2026-02-22T12:58:30.296677"
+  "last_updated": "2026-05-07T20:52:50.049082"
 }

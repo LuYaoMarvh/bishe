@@ -1,6 +1,6 @@
 """
 Schema Manager for NL2SQL system.
-M3: 生成、加载和检索数据库 Schema 信息。
+生成、加载和检索数据库 Schema 信息。
 
 功能：
 - 生成 schema.json（持久化）
@@ -178,7 +178,7 @@ class SchemaManager:
     def _get_foreign_keys(self, table_name: str) -> List[Dict]:
         """
         获取表的外键信息 (MySQL)
-        M8: 如果数据库没有定义外键约束，则基于字段名模式推断外键关系
+        如果数据库没有定义外键约束，则基于字段名模式推断外键关系
         """
         foreign_keys = []
         
@@ -331,7 +331,7 @@ class SchemaManager:
         """获取表行数 (MySQL)"""
         # 安全修复：验证表名，防止SQL注入
         if not validate_identifier(table_name):
-            print(f"⚠️  Invalid table name: {table_name}")
+            print(f" Invalid table name: {table_name}")
             return 0
         
         # 安全修复：使用清理后的表名
@@ -676,7 +676,7 @@ class SchemaManager:
     def build_relationship_graph(self) -> Dict[str, List[Dict]]:
         """
         构建表关系图（基于外键关系，双向连接）
-        M8: 如果schema中没有外键信息，则动态推断
+        如果schema中没有外键信息，则动态推断
         
         Returns:
             关系图字典: {table_name: [{"table": ref_table, "via": fk_column, "references": ref_column}]}
@@ -835,7 +835,7 @@ class SchemaManager:
     def _find_join_condition(self, table1: str, table2: str, schema: Dict) -> Optional[Dict]:
         """
         查找两个表之间的连接条件
-        M8: 如果schema中没有外键信息，则动态推断
+        如果schema中没有外键信息，则动态推断
         """
         # 获取table1的外键信息（如果schema中没有，则推断）
         table1_obj = None

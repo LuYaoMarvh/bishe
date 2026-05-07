@@ -1,7 +1,7 @@
 """
 Database tools for NL2SQL system.
-M2: Implements function call-based database query execution.
-M5: Adds sandbox security checks and limits.
+Implements function call-based database query execution.
+Adds sandbox security checks and limits.
 Supports MySQL only.
 """
 import sys
@@ -51,7 +51,7 @@ class DatabaseClient:
         """
         Execute SQL query with sandbox security checks.
 
-        M5: Adds security validation, row limits, and timeout controls.
+        Adds security validation, row limits, and timeout controls.
 
         Args:
             sql: SQL query string
@@ -81,10 +81,10 @@ class DatabaseClient:
             result["code"] = "SANDBOX_EMPTY_SQL"
             return result
 
-        # M5: Get sandbox configuration
+        # et sandbox configuration
         sandbox_config = config.get_sandbox_config()
         
-        # M5: Security check if sandbox is enabled
+        # Security check if sandbox is enabled
         if sandbox_config.get("enabled", True):
             safety_check = check_sql_safety(
                 sql,
@@ -105,7 +105,7 @@ class DatabaseClient:
                 result["code"] = safety_check["code"]
                 return result
 
-        # M5: Apply row limits
+        # Apply row limits
         max_rows = sandbox_config.get("max_rows", 1000)
         default_limit = sandbox_config.get("default_limit", 200)
         
@@ -119,7 +119,7 @@ class DatabaseClient:
             conn = self._get_connection()
             cursor = conn.cursor()
 
-            # M5: Set execution timeout (MySQL 5.7+)
+            # Set execution timeout
             max_execution_ms = sandbox_config.get("max_execution_ms", 3000)
             if max_execution_ms > 0:
                 try:
@@ -154,7 +154,7 @@ class DatabaseClient:
             error_msg = str(e)
             result["error"] = f"Database error: {error_msg}"
             
-            # M5: Check if error is due to timeout
+            # Check if error is due to timeout
             if "max_execution_time" in error_msg.lower() or "timeout" in error_msg.lower():
                 result["code"] = "SANDBOX_TIMEOUT"
                 log_security_event({

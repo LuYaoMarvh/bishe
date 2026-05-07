@@ -1,8 +1,9 @@
 """
 SQL Generation Node for NL2SQL system.
-M1: Uses prompt engineering to generate SQL from natural language.
-M3: Enhanced with smart schema matching.
-M8: Enhanced with multi-table JOIN path generation.
+Uses prompt engineering to generate SQL from natural language.
+Enhanced with smart schema matching.
+Enhanced with multi-table JOIN path generation.
+将自然语言转化为sql
 """
 import sys
 from pathlib import Path
@@ -41,7 +42,7 @@ def extract_sql_from_response(response: str) -> tuple:
     """
     Extract SQL from LLM response.
     Handles various response formats (with/without markdown code blocks).
-    M9.5: 增强检测，区分SQL查询和聊天回复
+    增强检测，区分SQL查询和聊天回复
 
     Args:
         response: LLM response text
@@ -71,7 +72,7 @@ def extract_sql_from_response(response: str) -> tuple:
     # Clean up
     sql = sql.strip()
 
-    # M9.5: 检查是否是有效的SQL语句
+    # 检查是否是有效的SQL语句
     # 检查是否包含SQL关键字（SELECT, FROM等）
     sql_lower = sql.lower()
     sql_keywords = ['select', 'from', 'where', 'join', 'group', 'order', 'having', 'limit']
@@ -101,7 +102,7 @@ def extract_sql_from_response(response: str) -> tuple:
 
 def get_database_schema(question: str = "") -> str:
     """
-    获取数据库 schema，支持智能匹配 (M3)
+    获取数据库 schema，支持智能匹配
     
     Args:
         question: 用户问题（用于智能匹配相关表）
@@ -119,7 +120,7 @@ def get_database_schema(question: str = "") -> str:
 
 def detect_user_intent(question: str) -> tuple:
     """
-    M9.5: 使用LLM判断用户意图是聊天还是数据查询
+    使用LLM判断用户意图是聊天还是数据查询
     
     Args:
         question: 用户问题
@@ -158,7 +159,7 @@ def detect_user_intent(question: str) -> tuple:
 判断结果："""
     
     try:
-        # 使用模块级别的llm_client
+        # llm_client
         response = llm_client.chat(
             prompt=intent_prompt,
             system_message="你是一个意图识别助手，专门判断用户是想聊天还是查询数据。只回答CHAT或QUERY。"
@@ -185,11 +186,11 @@ def detect_user_intent(question: str) -> tuple:
 def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     """
     Generate SQL from natural language question using LLM.
-    M3: Now uses smart schema matching based on question.
-    M4: Supports regeneration with critique feedback.
-    M8: Enhanced with multi-table JOIN path generation.
-    M9.5: Detects chat questions and handles them separately.
-    M9.75: Now uses context memory for better SQL generation.
+    Now uses smart schema matching based on question.
+    Supports regeneration with critique feedback.
+    Enhanced with multi-table JOIN path generation.
+    Detects chat questions and handles them separately.
+    Now uses context memory for better SQL generation.
     """
     question = state.get("question", "")
     critique = state.get("critique")  # M4: Get critique if available
@@ -199,30 +200,30 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     print(f"\n=== Generate SQL Node (M3/M4/M8/M9.5/M9.75) ===")
     print(f"Question: {question}")
     
-    # M9.75: 获取上下文记忆管理器
+    #获取上下文记忆管理器
     from graphs.utils.context_memory import get_context_manager
     context_manager = get_context_manager(session_id) if session_id else None
 
-    # M9.5: 使用LLM判断用户意图，如果是聊天问题，直接使用通用聊天接口
+    #使用LLM判断用户意图，如果是聊天问题，直接使用通用聊天接口
     if not critique:
         is_chat, reason = detect_user_intent(question)
-        print(f"💭 意图识别: {reason}")
+        print(f" 意图识别: {reason}")
         
         if is_chat:
-            print("💬 检测到聊天意图，使用通用聊天接口（不使用SQL生成模板）")
+            print(" 检测到聊天意图，使用通用聊天接口（不使用SQL生成模板）")
             
-            # M9.75: 先添加用户问题到历史（在生成响应之前）
+            #先添加用户问题到历史（在生成响应之前）
             if context_manager and regeneration_count == 0:
                 context_manager.add_query(question)
             
-            # M9.75: 格式化历史上下文用于聊天响应
+            # 格式化历史上下文用于聊天响应
             context_text = ""
             if context_manager:
                 context_text = context_manager.format_context_for_sql_generation(question, max_rounds=5)
                 if context_text:
-                    print("📚 已加载历史上下文用于聊天响应")
+                    print(" 已加载历史上下文用于聊天响应")
             
-            # M9.5: 加载聊天提示词，赋予NL2SQL助手身份
+            # 加载聊天提示词，赋予NL2SQL助手身份
             chat_prompt_template = load_prompt_template("chat")
             chat_prompt = chat_prompt_template.format(
                 question=question,
@@ -237,7 +238,7 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
             
             print(f"Chat Response: {chat_response}")
             
-            # M9.75: 添加聊天响应到上下文记忆
+            #添加聊天响应到上下文记忆
             if context_manager:
                 context_manager.add_chat_response(chat_response)
             
@@ -252,9 +253,9 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
                 "dialog_history": context_manager.get_all_history() if context_manager else state.get("dialog_history", [])
             }
         else:
-            print("📊 检测到数据查询意图，继续使用SQL生成流程")
+            print(" 检测到数据查询意图，继续使用SQL生成流程")
             
-            # M9.75: 添加查询到上下文记忆（仅在首次生成时，不是重新生成）
+            #添加查询到上下文记忆（仅在首次生成时，不是重新生成）
             if context_manager and regeneration_count == 0:
                 context_manager.add_query(question)
 
@@ -265,7 +266,7 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     # Load prompt template (only for SQL queries)
     prompt_template = load_prompt_template("nl2sql")
 
-    # M3: 使用智能 schema（根据问题匹配相关表）
+    # 使用智能 schema（根据问题匹配相关表）
     real_schema = get_database_schema(question)
     
     # 打印匹配到的表信息
@@ -273,7 +274,7 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     if relevant_tables:
         print(f"Relevant tables: {', '.join(relevant_tables)}")
     
-    # M8: 检测多表查询并生成JOIN路径建议
+    # 检测多表查询并生成JOIN路径建议
     join_suggestions = ""
     if relevant_tables and len(relevant_tables) >= 2:
         print(f"M8: Detected multi-table query ({len(relevant_tables)} tables)")
@@ -287,14 +288,14 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
                 for i, step in enumerate(join_steps, 1):
                     print(f"    {i}. {step['join_type']} JOIN {step['join_table']} ON {step['condition']}")
 
-    # M9.75: 格式化历史上下文
+    # 格式化历史上下文
     context_text = ""
     if context_manager and not critique:
         context_text = context_manager.format_context_for_sql_generation(question)
         if context_text:
-            print("📚 已加载历史上下文用于SQL生成")
+            print("已加载历史上下文用于SQL生成")
 
-    # M4: If this is a regeneration, modify the prompt to include critique
+    # If this is a regeneration, modify the prompt to include critique
     if critique:
         # Add critique section to prompt
         prompt_with_critique = f"""{prompt_template}
@@ -311,13 +312,13 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
 2. 表名和字段名与 Schema 完全匹配（区分大小写）
 3. 修复所有报告的错误
 """
-        # M8: Add JOIN suggestions if available
+        # Add JOIN suggestions if available
         if join_suggestions:
             prompt_with_critique = f"""{prompt_with_critique}
 
 {join_suggestions}
 """
-        # M9.75: 添加历史上下文到prompt
+        # 添加历史上下文到prompt
         if context_text:
             prompt_with_critique = f"""{prompt_with_critique}
 
@@ -354,15 +355,15 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
 
         print(f"\nLLM Response:\n{response}")
 
-        # M9.5: Extract SQL from response - 现在返回SQL和有效性标志
+        # Extract SQL from response - 现在返回SQL和有效性标志
         candidate_sql, is_valid_sql = extract_sql_from_response(response)
 
         print(f"\nExtracted SQL:\n{candidate_sql}")
         print(f"Is Valid SQL: {is_valid_sql}")
         
-        # M9.5: 如果不是有效的SQL，说明LLM返回的是聊天回复
+        # 如果不是有效的SQL，说明LLM返回的是聊天回复
         if not is_valid_sql:
-            print("⚠️  LLM返回的是聊天回复，不是SQL查询")
+            print(" LLM返回的是聊天回复，不是SQL查询")
             # 将LLM的回复作为答案，跳过SQL执行流程
             return {
                 **state,
@@ -374,7 +375,7 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
                 "critique": None
             }
         
-        # M4: Increment regeneration count if this is a retry
+        # Increment regeneration count if this is a retry
         new_regeneration_count = regeneration_count + 1 if critique else 0
 
         return {

@@ -1,6 +1,6 @@
 """
 SQL Sandbox Security Module for NL2SQL system.
-M5: Provides SQL safety checks, row limits, timeout controls, and security logging.
+Provides SQL safety checks, row limits, timeout controls, and security logging.
 """
 import sys
 import re
