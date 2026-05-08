@@ -1,9 +1,9 @@
 {
-  "total_queries": 11,
-  "success_queries": 11,
-  "failed_queries": 0,
+  "total_queries": 15,
+  "success_queries": 13,
+  "failed_queries": 2,
   "clarification_count": 4,
-  "total_response_time": 227.86933135986328,
+  "total_response_time": 838.6605169773102,
   "query_history": [
     {
       "question": "查询所有客户的姓名和邮箱",
@@ -92,7 +92,39 @@
       "is_clarification": true,
       "error": null,
       "timestamp": "2026-05-08T16:52:58.898635"
+    },
+    {
+      "question": "查询所有学生",
+      "success": false,
+      "response_time": 155.88372898101807,
+      "is_clarification": false,
+      "error": "Recursion limit of 25 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/GRAPH_RECURSION_LIMIT",
+      "timestamp": "2026-05-08T17:15:36.285212"
+    },
+    {
+      "question": "查询所有学生",
+      "success": false,
+      "response_time": 437.71406626701355,
+      "is_clarification": false,
+      "error": "Recursion limit of 25 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/GRAPH_RECURSION_LIMIT",
+      "timestamp": "2026-05-08T17:23:25.931491"
+    },
+    {
+      "question": "查询各个学院的学生数量",
+      "success": true,
+      "response_time": 12.298667430877686,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-08T18:31:24.920761"
+    },
+    {
+      "question": "查询学号总数",
+      "success": true,
+      "response_time": 4.894722938537598,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-08T18:40:24.066910"
     }
   ],
-  "last_updated": "2026-05-08T16:52:58.898635"
+  "last_updated": "2026-05-08T18:40:24.067910"
 }

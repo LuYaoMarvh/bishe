@@ -1,21 +1,20 @@
 {
   "database_type": "mysql",
-  "generated_at": "2025-12-09T22:18:31.921634",
+  "generated_at": "2026-05-08T18:30:51.830905",
   "tables": [
     {
-      "name": "album",
+      "name": "college",
       "description": "",
       "columns": [
         {
-          "name": "AlbumId",
-          "type": "int",
+          "name": "college_id",
+          "type": "int(11)",
           "primary_key": true,
           "not_null": true,
           "description": "",
           "aliases": [
-            "专辑编号",
-            "album_id",
-            "albumid"
+            "college编号",
+            "college_id"
           ],
           "sample_values": [
             1,
@@ -24,909 +23,49 @@
           ]
         },
         {
-          "name": "Title",
-          "type": "varchar(160)",
+          "name": "college_name",
+          "type": "varchar(50)",
           "primary_key": false,
           "not_null": true,
           "description": "",
           "aliases": [
-            "title",
-            "职位"
+            "college名称",
+            "college_name"
           ],
           "sample_values": [
-            "For Those About To Rock We Salute You",
-            "Balls to the Wall",
-            "Restless and Wild"
+            "计算机科学与技术学院",
+            "经济管理学院",
+            "外国语学院"
           ]
         },
         {
-          "name": "ArtistId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "艺术家编号",
-            "artist_id",
-            "artistid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "ArtistId",
-          "references_table": "artist",
-          "references_column": "ArtistId"
-        }
-      ],
-      "row_count": 347
-    },
-    {
-      "name": "artist",
-      "description": "",
-      "columns": [
-        {
-          "name": "ArtistId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "艺术家编号",
-            "artist_id",
-            "artistid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "Name",
-          "type": "varchar(120)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "name",
-            "名称"
-          ],
-          "sample_values": [
-            "AC/DC",
-            "Accept",
-            "Aerosmith"
-          ]
-        }
-      ],
-      "foreign_keys": [],
-      "row_count": 275
-    },
-    {
-      "name": "customer",
-      "description": "",
-      "columns": [
-        {
-          "name": "CustomerId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "customerid",
-            "客户编号",
-            "customer_id"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "FirstName",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "first_name",
-            "名名称",
-            "firstname"
-          ],
-          "sample_values": [
-            "Luís",
-            "Leonie",
-            "François"
-          ]
-        },
-        {
-          "name": "LastName",
+          "name": "dean",
           "type": "varchar(20)",
           "primary_key": false,
-          "not_null": true,
+          "not_null": false,
           "description": "",
           "aliases": [
-            "lastname",
-            "姓名称",
-            "last_name"
+            "dean"
           ],
           "sample_values": [
-            "Gonçalves",
-            "Köhler",
-            "Tremblay"
+            "张明",
+            "李华",
+            "王芳"
           ]
         },
         {
-          "name": "Company",
-          "type": "varchar(80)",
+          "name": "established_year",
+          "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "company",
-            "公司"
+            "established_year"
           ],
           "sample_values": [
-            "Embraer - Empresa Brasileira de Aeronáutica S.A.",
-            "JetBrains s.r.o.",
-            "Woodstock Discos"
-          ]
-        },
-        {
-          "name": "Address",
-          "type": "varchar(70)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "address",
-            "地址"
-          ],
-          "sample_values": [
-            "Av. Brigadeiro Faria Lima, 2170",
-            "Theodor-Heuss-Straße 34",
-            "1498 rue Bélanger"
-          ]
-        },
-        {
-          "name": "City",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "城市",
-            "city"
-          ],
-          "sample_values": [
-            "São José dos Campos",
-            "Stuttgart",
-            "Montréal"
-          ]
-        },
-        {
-          "name": "State",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "州",
-            "state"
-          ],
-          "sample_values": [
-            "SP",
-            "QC",
-            "RJ"
-          ]
-        },
-        {
-          "name": "Country",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "country",
-            "国家"
-          ],
-          "sample_values": [
-            "Brazil",
-            "Germany",
-            "Canada"
-          ]
-        },
-        {
-          "name": "PostalCode",
-          "type": "varchar(10)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "postalcode",
-            "邮编代码",
-            "postal_code"
-          ],
-          "sample_values": [
-            "12227-000",
-            "70174",
-            "H2G 1A7"
-          ]
-        },
-        {
-          "name": "Phone",
-          "type": "varchar(24)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "phone",
-            "电话"
-          ],
-          "sample_values": [
-            "+55 (12) 3923-5555",
-            "+49 0711 2842222",
-            "+1 (514) 721-4711"
-          ]
-        },
-        {
-          "name": "Fax",
-          "type": "varchar(24)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "fax",
-            "传真"
-          ],
-          "sample_values": [
-            "+55 (12) 3923-5566",
-            "+420 2 4172 5555",
-            "+55 (11) 3033-4564"
-          ]
-        },
-        {
-          "name": "Email",
-          "type": "varchar(60)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "email",
-            "邮箱"
-          ],
-          "sample_values": [
-            "luisg@embraer.com.br",
-            "leonekohler@surfeu.de",
-            "ftremblay@gmail.com"
-          ]
-        },
-        {
-          "name": "SupportRepId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "客服代表编号",
-            "supportrepid",
-            "support_rep_id"
-          ],
-          "sample_values": [
-            3,
-            5,
-            4
-          ]
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "SupportRepId",
-          "references_table": "employee",
-          "references_column": "EmployeeId"
-        }
-      ],
-      "row_count": 59
-    },
-    {
-      "name": "employee",
-      "description": "",
-      "columns": [
-        {
-          "name": "EmployeeId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "员工编号",
-            "employee_id",
-            "employeeid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "LastName",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "lastname",
-            "姓名称",
-            "last_name"
-          ],
-          "sample_values": [
-            "Adams",
-            "Edwards",
-            "Peacock"
-          ]
-        },
-        {
-          "name": "FirstName",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "first_name",
-            "名名称",
-            "firstname"
-          ],
-          "sample_values": [
-            "Andrew",
-            "Nancy",
-            "Jane"
-          ]
-        },
-        {
-          "name": "Title",
-          "type": "varchar(30)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "title",
-            "职位"
-          ],
-          "sample_values": [
-            "General Manager",
-            "Sales Manager",
-            "Sales Support Agent"
-          ]
-        },
-        {
-          "name": "ReportsTo",
-          "type": "int",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "汇报to",
-            "reportsto",
-            "reports_to"
-          ],
-          "sample_values": [
-            1,
-            2,
-            6
-          ]
-        },
-        {
-          "name": "BirthDate",
-          "type": "datetime",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "birth_date",
-            "birthdate",
-            "生日日期"
-          ],
-          "sample_values": [
-            "1962-02-18 00:00:00",
-            "1958-12-08 00:00:00",
-            "1973-08-29 00:00:00"
-          ]
-        },
-        {
-          "name": "HireDate",
-          "type": "datetime",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "hire_date",
-            "入职日期",
-            "hiredate"
-          ],
-          "sample_values": [
-            "2002-08-14 00:00:00",
-            "2002-05-01 00:00:00",
-            "2002-04-01 00:00:00"
-          ]
-        },
-        {
-          "name": "Address",
-          "type": "varchar(70)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "address",
-            "地址"
-          ],
-          "sample_values": [
-            "11120 Jasper Ave NW",
-            "825 8 Ave SW",
-            "1111 6 Ave SW"
-          ]
-        },
-        {
-          "name": "City",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "城市",
-            "city"
-          ],
-          "sample_values": [
-            "Edmonton",
-            "Calgary",
-            "Lethbridge"
-          ]
-        },
-        {
-          "name": "State",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "州",
-            "state"
-          ],
-          "sample_values": [
-            "AB"
-          ]
-        },
-        {
-          "name": "Country",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "country",
-            "国家"
-          ],
-          "sample_values": [
-            "Canada"
-          ]
-        },
-        {
-          "name": "PostalCode",
-          "type": "varchar(10)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "postalcode",
-            "邮编代码",
-            "postal_code"
-          ],
-          "sample_values": [
-            "T5K 2N1",
-            "T2P 2T3",
-            "T2P 5M5"
-          ]
-        },
-        {
-          "name": "Phone",
-          "type": "varchar(24)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "phone",
-            "电话"
-          ],
-          "sample_values": [
-            "+1 (780) 428-9482",
-            "+1 (403) 262-3443",
-            "+1 (403) 263-4423"
-          ]
-        },
-        {
-          "name": "Fax",
-          "type": "varchar(24)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "fax",
-            "传真"
-          ],
-          "sample_values": [
-            "+1 (780) 428-3457",
-            "+1 (403) 262-3322",
-            "+1 (403) 262-6712"
-          ]
-        },
-        {
-          "name": "Email",
-          "type": "varchar(60)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "email",
-            "邮箱"
-          ],
-          "sample_values": [
-            "andrew@chinookcorp.com",
-            "nancy@chinookcorp.com",
-            "jane@chinookcorp.com"
-          ]
-        }
-      ],
-      "foreign_keys": [],
-      "row_count": 8
-    },
-    {
-      "name": "genre",
-      "description": "",
-      "columns": [
-        {
-          "name": "GenreId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "genre_id",
-            "流派编号",
-            "genreid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "Name",
-          "type": "varchar(120)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "name",
-            "名称"
-          ],
-          "sample_values": [
-            "Rock",
-            "Jazz",
-            "Metal"
-          ]
-        }
-      ],
-      "foreign_keys": [],
-      "row_count": 25
-    },
-    {
-      "name": "invoice",
-      "description": "",
-      "columns": [
-        {
-          "name": "InvoiceId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "发票编号",
-            "invoice_id",
-            "invoiceid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "CustomerId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "customerid",
-            "客户编号",
-            "customer_id"
-          ],
-          "sample_values": [
-            2,
-            4,
-            8
-          ]
-        },
-        {
-          "name": "InvoiceDate",
-          "type": "datetime",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "发票日期",
-            "invoice_date",
-            "invoicedate"
-          ],
-          "sample_values": [
-            "2021-01-01 00:00:00",
-            "2021-01-02 00:00:00",
-            "2021-01-03 00:00:00"
-          ]
-        },
-        {
-          "name": "BillingAddress",
-          "type": "varchar(70)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "billing_address",
-            "billingaddress",
-            "账单地址"
-          ],
-          "sample_values": [
-            "Theodor-Heuss-Straße 34",
-            "Ullevålsveien 14",
-            "Grétrystraat 63"
-          ]
-        },
-        {
-          "name": "BillingCity",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "账单城市",
-            "billingcity",
-            "billing_city"
-          ],
-          "sample_values": [
-            "Stuttgart",
-            "Oslo",
-            "Brussels"
-          ]
-        },
-        {
-          "name": "BillingState",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "billing_state",
-            "billingstate",
-            "账单州"
-          ],
-          "sample_values": [
-            "AB",
-            "MA",
-            "Dublin"
-          ]
-        },
-        {
-          "name": "BillingCountry",
-          "type": "varchar(40)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "账单国家",
-            "billing_country",
-            "billingcountry"
-          ],
-          "sample_values": [
-            "Germany",
-            "Norway",
-            "Belgium"
-          ]
-        },
-        {
-          "name": "BillingPostalCode",
-          "type": "varchar(10)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "billingpostalcode",
-            "billing_postal_code",
-            "账单邮编代码"
-          ],
-          "sample_values": [
-            "70174",
-            "0171",
-            "1000"
-          ]
-        },
-        {
-          "name": "Total",
-          "type": "decimal(10,2)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "total",
-            "总计"
-          ],
-          "sample_values": [
-            "1.98",
-            "3.96",
-            "5.94"
-          ]
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "CustomerId",
-          "references_table": "customer",
-          "references_column": "CustomerId"
-        }
-      ],
-      "row_count": 412
-    },
-    {
-      "name": "invoiceline",
-      "description": "",
-      "columns": [
-        {
-          "name": "InvoiceLineId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "发票line编号",
-            "invoicelineid",
-            "invoice_line_id"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "InvoiceId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "发票编号",
-            "invoice_id",
-            "invoiceid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "TrackId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "track_id",
-            "曲目编号",
-            "trackid"
-          ],
-          "sample_values": [
-            2,
-            4,
-            6
-          ]
-        },
-        {
-          "name": "UnitPrice",
-          "type": "decimal(10,2)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "单位价格",
-            "unitprice",
-            "unit_price"
-          ],
-          "sample_values": [
-            "0.99",
-            "1.99"
-          ]
-        },
-        {
-          "name": "Quantity",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "数量",
-            "quantity"
-          ],
-          "sample_values": [
-            1
-          ]
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "InvoiceId",
-          "references_table": "invoice",
-          "references_column": "InvoiceId"
-        },
-        {
-          "column": "TrackId",
-          "references_table": "track",
-          "references_column": "TrackId"
-        }
-      ],
-      "row_count": 2240
-    },
-    {
-      "name": "mediatype",
-      "description": "",
-      "columns": [
-        {
-          "name": "MediaTypeId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "media_type_id",
-            "媒体类型编号",
-            "mediatypeid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "Name",
-          "type": "varchar(120)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "name",
-            "名称"
-          ],
-          "sample_values": [
-            "MPEG audio file",
-            "Protected AAC audio file",
-            "Protected MPEG-4 video file"
+            2000,
+            1995,
+            1998
           ]
         }
       ],
@@ -934,102 +73,104 @@
       "row_count": 5
     },
     {
-      "name": "playlist",
+      "name": "course",
       "description": "",
       "columns": [
         {
-          "name": "PlaylistId",
-          "type": "int",
+          "name": "course_id",
+          "type": "varchar(10)",
           "primary_key": true,
           "not_null": true,
           "description": "",
           "aliases": [
-            "播放列表编号",
-            "playlist_id",
-            "playlistid"
+            "course_id",
+            "course编号"
           ],
           "sample_values": [
-            1,
-            2,
-            3
+            "CS101",
+            "CS102",
+            "CS103"
           ]
         },
         {
-          "name": "Name",
-          "type": "varchar(120)",
+          "name": "course_name",
+          "type": "varchar(50)",
+          "primary_key": false,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "course_name",
+            "course名称"
+          ],
+          "sample_values": [
+            "高等数学",
+            "大学英语",
+            "计算机基础"
+          ]
+        },
+        {
+          "name": "credit",
+          "type": "decimal(3,1)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "name",
-            "名称"
+            "credit"
           ],
           "sample_values": [
-            "Music",
-            "Movies",
-            "TV Shows"
+            "4.0",
+            "3.0",
+            "3.5"
+          ]
+        },
+        {
+          "name": "teacher",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "teacher"
+          ],
+          "sample_values": [
+            "王教授",
+            "李教授",
+            "张教授"
+          ]
+        },
+        {
+          "name": "course_type",
+          "type": "enum('必修','选修','通识')",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "course_type",
+            "course类型"
+          ],
+          "sample_values": [
+            "必修",
+            "选修",
+            "通识"
           ]
         }
       ],
       "foreign_keys": [],
-      "row_count": 18
+      "row_count": 10
     },
     {
-      "name": "playlisttrack",
+      "name": "major",
       "description": "",
       "columns": [
         {
-          "name": "PlaylistId",
-          "type": "int",
+          "name": "major_id",
+          "type": "int(11)",
           "primary_key": true,
           "not_null": true,
           "description": "",
           "aliases": [
-            "播放列表编号",
-            "playlist_id",
-            "playlistid"
-          ],
-          "sample_values": [
-            1,
-            3,
-            5
-          ]
-        },
-        {
-          "name": "TrackId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "track_id",
-            "曲目编号",
-            "trackid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        }
-      ],
-      "foreign_keys": [],
-      "row_count": 8715
-    },
-    {
-      "name": "track",
-      "description": "",
-      "columns": [
-        {
-          "name": "TrackId",
-          "type": "int",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "track_id",
-            "曲目编号",
-            "trackid"
+            "major_id",
+            "major编号"
           ],
           "sample_values": [
             1,
@@ -1038,31 +179,30 @@
           ]
         },
         {
-          "name": "Name",
-          "type": "varchar(200)",
+          "name": "major_name",
+          "type": "varchar(50)",
           "primary_key": false,
           "not_null": true,
           "description": "",
           "aliases": [
-            "name",
-            "名称"
+            "major_name",
+            "major名称"
           ],
           "sample_values": [
-            "For Those About To Rock (We Salute You)",
-            "Balls to the Wall",
-            "Fast As a Shark"
+            "软件工程",
+            "计算机科学与技术",
+            "人工智能"
           ]
         },
         {
-          "name": "AlbumId",
-          "type": "int",
+          "name": "college_id",
+          "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "专辑编号",
-            "album_id",
-            "albumid"
+            "college编号",
+            "college_id"
           ],
           "sample_values": [
             1,
@@ -1071,534 +211,486 @@
           ]
         },
         {
-          "name": "MediaTypeId",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "media_type_id",
-            "媒体类型编号",
-            "mediatypeid"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "GenreId",
-          "type": "int",
+          "name": "duration",
+          "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "genre_id",
-            "流派编号",
-            "genreid"
+            "duration"
           ],
           "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "Composer",
-          "type": "varchar(220)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "作曲",
-            "composer"
-          ],
-          "sample_values": [
-            "Angus Young, Malcolm Young, Brian Johnson",
-            "U. Dirkschneider, W. Hoffmann, H. Frank, P. Baltes, S. Kaufmann, G. Hoffmann",
-            "F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman"
-          ]
-        },
-        {
-          "name": "Milliseconds",
-          "type": "int",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "毫秒",
-            "milliseconds"
-          ],
-          "sample_values": [
-            343719,
-            342562,
-            230619
-          ]
-        },
-        {
-          "name": "Bytes",
-          "type": "int",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "字节",
-            "bytes"
-          ],
-          "sample_values": [
-            11170334,
-            5510424,
-            3990994
-          ]
-        },
-        {
-          "name": "UnitPrice",
-          "type": "decimal(10,2)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "单位价格",
-            "unitprice",
-            "unit_price"
-          ],
-          "sample_values": [
-            "0.99",
-            "1.99"
+            4
           ]
         }
       ],
       "foreign_keys": [
         {
-          "column": "AlbumId",
-          "references_table": "album",
-          "references_column": "AlbumId"
-        },
-        {
-          "column": "MediaTypeId",
-          "references_table": "mediatype",
-          "references_column": "MediaTypeId"
-        },
-        {
-          "column": "GenreId",
-          "references_table": "genre",
-          "references_column": "GenreId"
+          "column": "college_id",
+          "references_table": "college",
+          "references_column": "college_id"
         }
       ],
-      "row_count": 3503
+      "row_count": 10
+    },
+    {
+      "name": "score",
+      "description": "",
+      "columns": [
+        {
+          "name": "score_id",
+          "type": "int(11)",
+          "primary_key": true,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "score_id",
+            "score编号"
+          ],
+          "sample_values": [
+            1,
+            4,
+            7
+          ]
+        },
+        {
+          "name": "student_id",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "student编号",
+            "student_id"
+          ],
+          "sample_values": [
+            "2020001",
+            "2020002",
+            "2020003"
+          ]
+        },
+        {
+          "name": "course_id",
+          "type": "varchar(10)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "course_id",
+            "course编号"
+          ],
+          "sample_values": [
+            "CS101",
+            "CS102",
+            "CS103"
+          ]
+        },
+        {
+          "name": "score",
+          "type": "decimal(5,2)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "score"
+          ],
+          "sample_values": [
+            "85.50",
+            "78.00",
+            "92.00"
+          ]
+        },
+        {
+          "name": "semester",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "semester"
+          ],
+          "sample_values": [
+            "2022-2023-1",
+            "2022-2023-2",
+            "2023-2024-1"
+          ]
+        },
+        {
+          "name": "exam_date",
+          "type": "date",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "exam日期",
+            "exam_date"
+          ],
+          "sample_values": []
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "course_id",
+          "references_table": "course",
+          "references_column": "course_id"
+        },
+        {
+          "column": "student_id",
+          "references_table": "student",
+          "references_column": "student_id"
+        }
+      ],
+      "row_count": 22
+    },
+    {
+      "name": "student",
+      "description": "",
+      "columns": [
+        {
+          "name": "student_id",
+          "type": "varchar(20)",
+          "primary_key": true,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "student编号",
+            "student_id"
+          ],
+          "sample_values": [
+            "2021001",
+            "2021002",
+            "2022001"
+          ]
+        },
+        {
+          "name": "name",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "name",
+            "名称"
+          ],
+          "sample_values": [
+            "林涛",
+            "何丽",
+            "高强"
+          ]
+        },
+        {
+          "name": "gender",
+          "type": "enum('男','女')",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "gender"
+          ],
+          "sample_values": [
+            "男",
+            "女"
+          ]
+        },
+        {
+          "name": "birth_date",
+          "type": "date",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "生日日期",
+            "birth_date"
+          ],
+          "sample_values": [
+            "2001-03-04",
+            "2001-09-18",
+            "2001-06-30"
+          ]
+        },
+        {
+          "name": "major_id",
+          "type": "int(11)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "major_id",
+            "major编号"
+          ],
+          "sample_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "enrollment_year",
+          "type": "int(11)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "enrollment_year"
+          ],
+          "sample_values": [
+            2020,
+            2021,
+            2022
+          ]
+        },
+        {
+          "name": "phone",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "电话",
+            "phone"
+          ],
+          "sample_values": [
+            "13800138016",
+            "13800138017",
+            "13800138018"
+          ]
+        },
+        {
+          "name": "email",
+          "type": "varchar(50)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "邮箱",
+            "email"
+          ],
+          "sample_values": [
+            "lintao@stu.edu",
+            "heli@stu.edu",
+            "gaoqiang@stu.edu"
+          ]
+        },
+        {
+          "name": "hometown",
+          "type": "varchar(50)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "hometown"
+          ],
+          "sample_values": [
+            "南京",
+            "武汉",
+            "成都"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "major_id",
+          "references_table": "major",
+          "references_column": "major_id"
+        }
+      ],
+      "row_count": 30
     }
   ],
   "table_list": [
-    "album",
-    "artist",
-    "customer",
-    "employee",
-    "genre",
-    "invoice",
-    "invoiceline",
-    "mediatype",
-    "playlist",
-    "playlisttrack",
-    "track"
+    "college",
+    "course",
+    "major",
+    "score",
+    "student"
   ],
   "field_index": {
-    "albumid": [
+    "college_id": [
       {
-        "table": "album",
-        "column": "AlbumId",
-        "type": "int"
+        "table": "college",
+        "column": "college_id",
+        "type": "int(11)"
       },
       {
-        "table": "track",
-        "column": "AlbumId",
-        "type": "int"
+        "table": "major",
+        "column": "college_id",
+        "type": "int(11)"
       }
     ],
-    "title": [
+    "college_name": [
       {
-        "table": "album",
-        "column": "Title",
-        "type": "varchar(160)"
-      },
-      {
-        "table": "employee",
-        "column": "Title",
-        "type": "varchar(30)"
+        "table": "college",
+        "column": "college_name",
+        "type": "varchar(50)"
       }
     ],
-    "artistid": [
+    "dean": [
       {
-        "table": "album",
-        "column": "ArtistId",
-        "type": "int"
+        "table": "college",
+        "column": "dean",
+        "type": "varchar(20)"
+      }
+    ],
+    "established_year": [
+      {
+        "table": "college",
+        "column": "established_year",
+        "type": "int(11)"
+      }
+    ],
+    "course_id": [
+      {
+        "table": "course",
+        "column": "course_id",
+        "type": "varchar(10)"
       },
       {
-        "table": "artist",
-        "column": "ArtistId",
-        "type": "int"
+        "table": "score",
+        "column": "course_id",
+        "type": "varchar(10)"
+      }
+    ],
+    "course_name": [
+      {
+        "table": "course",
+        "column": "course_name",
+        "type": "varchar(50)"
+      }
+    ],
+    "credit": [
+      {
+        "table": "course",
+        "column": "credit",
+        "type": "decimal(3,1)"
+      }
+    ],
+    "teacher": [
+      {
+        "table": "course",
+        "column": "teacher",
+        "type": "varchar(20)"
+      }
+    ],
+    "course_type": [
+      {
+        "table": "course",
+        "column": "course_type",
+        "type": "enum('必修','选修','通识')"
+      }
+    ],
+    "major_id": [
+      {
+        "table": "major",
+        "column": "major_id",
+        "type": "int(11)"
+      },
+      {
+        "table": "student",
+        "column": "major_id",
+        "type": "int(11)"
+      }
+    ],
+    "major_name": [
+      {
+        "table": "major",
+        "column": "major_name",
+        "type": "varchar(50)"
+      }
+    ],
+    "duration": [
+      {
+        "table": "major",
+        "column": "duration",
+        "type": "int(11)"
+      }
+    ],
+    "score_id": [
+      {
+        "table": "score",
+        "column": "score_id",
+        "type": "int(11)"
+      }
+    ],
+    "student_id": [
+      {
+        "table": "score",
+        "column": "student_id",
+        "type": "varchar(20)"
+      },
+      {
+        "table": "student",
+        "column": "student_id",
+        "type": "varchar(20)"
+      }
+    ],
+    "score": [
+      {
+        "table": "score",
+        "column": "score",
+        "type": "decimal(5,2)"
+      }
+    ],
+    "semester": [
+      {
+        "table": "score",
+        "column": "semester",
+        "type": "varchar(20)"
+      }
+    ],
+    "exam_date": [
+      {
+        "table": "score",
+        "column": "exam_date",
+        "type": "date"
       }
     ],
     "name": [
       {
-        "table": "artist",
-        "column": "Name",
-        "type": "varchar(120)"
-      },
-      {
-        "table": "genre",
-        "column": "Name",
-        "type": "varchar(120)"
-      },
-      {
-        "table": "mediatype",
-        "column": "Name",
-        "type": "varchar(120)"
-      },
-      {
-        "table": "playlist",
-        "column": "Name",
-        "type": "varchar(120)"
-      },
-      {
-        "table": "track",
-        "column": "Name",
-        "type": "varchar(200)"
-      }
-    ],
-    "customerid": [
-      {
-        "table": "customer",
-        "column": "CustomerId",
-        "type": "int"
-      },
-      {
-        "table": "invoice",
-        "column": "CustomerId",
-        "type": "int"
-      }
-    ],
-    "firstname": [
-      {
-        "table": "customer",
-        "column": "FirstName",
-        "type": "varchar(40)"
-      },
-      {
-        "table": "employee",
-        "column": "FirstName",
+        "table": "student",
+        "column": "name",
         "type": "varchar(20)"
       }
     ],
-    "lastname": [
+    "gender": [
       {
-        "table": "customer",
-        "column": "LastName",
-        "type": "varchar(20)"
-      },
-      {
-        "table": "employee",
-        "column": "LastName",
-        "type": "varchar(20)"
+        "table": "student",
+        "column": "gender",
+        "type": "enum('男','女')"
       }
     ],
-    "company": [
+    "birth_date": [
       {
-        "table": "customer",
-        "column": "Company",
-        "type": "varchar(80)"
+        "table": "student",
+        "column": "birth_date",
+        "type": "date"
       }
     ],
-    "address": [
+    "enrollment_year": [
       {
-        "table": "customer",
-        "column": "Address",
-        "type": "varchar(70)"
-      },
-      {
-        "table": "employee",
-        "column": "Address",
-        "type": "varchar(70)"
-      }
-    ],
-    "city": [
-      {
-        "table": "customer",
-        "column": "City",
-        "type": "varchar(40)"
-      },
-      {
-        "table": "employee",
-        "column": "City",
-        "type": "varchar(40)"
-      }
-    ],
-    "state": [
-      {
-        "table": "customer",
-        "column": "State",
-        "type": "varchar(40)"
-      },
-      {
-        "table": "employee",
-        "column": "State",
-        "type": "varchar(40)"
-      }
-    ],
-    "country": [
-      {
-        "table": "customer",
-        "column": "Country",
-        "type": "varchar(40)"
-      },
-      {
-        "table": "employee",
-        "column": "Country",
-        "type": "varchar(40)"
-      }
-    ],
-    "postalcode": [
-      {
-        "table": "customer",
-        "column": "PostalCode",
-        "type": "varchar(10)"
-      },
-      {
-        "table": "employee",
-        "column": "PostalCode",
-        "type": "varchar(10)"
+        "table": "student",
+        "column": "enrollment_year",
+        "type": "int(11)"
       }
     ],
     "phone": [
       {
-        "table": "customer",
-        "column": "Phone",
-        "type": "varchar(24)"
-      },
-      {
-        "table": "employee",
-        "column": "Phone",
-        "type": "varchar(24)"
-      }
-    ],
-    "fax": [
-      {
-        "table": "customer",
-        "column": "Fax",
-        "type": "varchar(24)"
-      },
-      {
-        "table": "employee",
-        "column": "Fax",
-        "type": "varchar(24)"
+        "table": "student",
+        "column": "phone",
+        "type": "varchar(20)"
       }
     ],
     "email": [
       {
-        "table": "customer",
-        "column": "Email",
-        "type": "varchar(60)"
-      },
-      {
-        "table": "employee",
-        "column": "Email",
-        "type": "varchar(60)"
+        "table": "student",
+        "column": "email",
+        "type": "varchar(50)"
       }
     ],
-    "supportrepid": [
+    "hometown": [
       {
-        "table": "customer",
-        "column": "SupportRepId",
-        "type": "int"
-      }
-    ],
-    "employeeid": [
-      {
-        "table": "employee",
-        "column": "EmployeeId",
-        "type": "int"
-      }
-    ],
-    "reportsto": [
-      {
-        "table": "employee",
-        "column": "ReportsTo",
-        "type": "int"
-      }
-    ],
-    "birthdate": [
-      {
-        "table": "employee",
-        "column": "BirthDate",
-        "type": "datetime"
-      }
-    ],
-    "hiredate": [
-      {
-        "table": "employee",
-        "column": "HireDate",
-        "type": "datetime"
-      }
-    ],
-    "genreid": [
-      {
-        "table": "genre",
-        "column": "GenreId",
-        "type": "int"
-      },
-      {
-        "table": "track",
-        "column": "GenreId",
-        "type": "int"
-      }
-    ],
-    "invoiceid": [
-      {
-        "table": "invoice",
-        "column": "InvoiceId",
-        "type": "int"
-      },
-      {
-        "table": "invoiceline",
-        "column": "InvoiceId",
-        "type": "int"
-      }
-    ],
-    "invoicedate": [
-      {
-        "table": "invoice",
-        "column": "InvoiceDate",
-        "type": "datetime"
-      }
-    ],
-    "billingaddress": [
-      {
-        "table": "invoice",
-        "column": "BillingAddress",
-        "type": "varchar(70)"
-      }
-    ],
-    "billingcity": [
-      {
-        "table": "invoice",
-        "column": "BillingCity",
-        "type": "varchar(40)"
-      }
-    ],
-    "billingstate": [
-      {
-        "table": "invoice",
-        "column": "BillingState",
-        "type": "varchar(40)"
-      }
-    ],
-    "billingcountry": [
-      {
-        "table": "invoice",
-        "column": "BillingCountry",
-        "type": "varchar(40)"
-      }
-    ],
-    "billingpostalcode": [
-      {
-        "table": "invoice",
-        "column": "BillingPostalCode",
-        "type": "varchar(10)"
-      }
-    ],
-    "total": [
-      {
-        "table": "invoice",
-        "column": "Total",
-        "type": "decimal(10,2)"
-      }
-    ],
-    "invoicelineid": [
-      {
-        "table": "invoiceline",
-        "column": "InvoiceLineId",
-        "type": "int"
-      }
-    ],
-    "trackid": [
-      {
-        "table": "invoiceline",
-        "column": "TrackId",
-        "type": "int"
-      },
-      {
-        "table": "playlisttrack",
-        "column": "TrackId",
-        "type": "int"
-      },
-      {
-        "table": "track",
-        "column": "TrackId",
-        "type": "int"
-      }
-    ],
-    "unitprice": [
-      {
-        "table": "invoiceline",
-        "column": "UnitPrice",
-        "type": "decimal(10,2)"
-      },
-      {
-        "table": "track",
-        "column": "UnitPrice",
-        "type": "decimal(10,2)"
-      }
-    ],
-    "quantity": [
-      {
-        "table": "invoiceline",
-        "column": "Quantity",
-        "type": "int"
-      }
-    ],
-    "mediatypeid": [
-      {
-        "table": "mediatype",
-        "column": "MediaTypeId",
-        "type": "int"
-      },
-      {
-        "table": "track",
-        "column": "MediaTypeId",
-        "type": "int"
-      }
-    ],
-    "playlistid": [
-      {
-        "table": "playlist",
-        "column": "PlaylistId",
-        "type": "int"
-      },
-      {
-        "table": "playlisttrack",
-        "column": "PlaylistId",
-        "type": "int"
-      }
-    ],
-    "composer": [
-      {
-        "table": "track",
-        "column": "Composer",
-        "type": "varchar(220)"
-      }
-    ],
-    "milliseconds": [
-      {
-        "table": "track",
-        "column": "Milliseconds",
-        "type": "int"
-      }
-    ],
-    "bytes": [
-      {
-        "table": "track",
-        "column": "Bytes",
-        "type": "int"
+        "table": "student",
+        "column": "hometown",
+        "type": "varchar(50)"
       }
     ]
   }

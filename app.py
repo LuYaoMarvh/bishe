@@ -343,7 +343,7 @@ def get_current_database():
 
 @app.route('/api/databases/switch', methods=['POST'])
 def switch_database():
-    """切换数据库（修复版 - 通过修改环境变量实现）"""
+    """切换数据库（修复版v2 - 解决递归问题）"""
     try:
         data = request.json
         db_id = data.get('database_id')
@@ -362,67 +362,118 @@ def switch_database():
                 'error': f'数据库不存在：{db_id}'
             }), 404
 
-        # 切换数据库配置
+        print(f"\n{'=' * 60}")
+        print(f"🔄 开始切换数据库到：{db_config['display_name']}")
+        print(f"{'=' * 60}")
+
+        # 1. 切换配置
         if not db_manager.switch_database(db_id):
             return jsonify({
                 'success': False,
-                'error': '切换失败'
+                'error': '切换配置失败'
             }), 500
 
-        # 修改环境变量（让原来的 db_client 重新读取）
-        os.environ['MYSQL_HOST'] = str(db_config['host'])
-        os.environ['MYSQL_PORT'] = str(db_config['port'])
-        os.environ['MYSQL_USER'] = str(db_config['user'])
-        os.environ['MYSQL_PASSWORD'] = str(db_config.get('password', ''))
-        os.environ['MYSQL_DATABASE'] = str(db_config['name'])
+        # 2. 更新 db_client 配置
+        from tools.db import db_client
+        db_client.mysql_config = {
+            "host": db_config['host'],
+            "port": db_config['port'],
+            "user": db_config['user'],
+            "password": db_config.get('password', '') or os.environ.get('MYSQL_PASSWORD', ''),
+            "database": db_config['name'],
+            "charset": "utf8mb4"
+        }
 
-        # 重新加载 db_client
-        global db_client
-        try:
-            # 方法1：尝试重新初始化（如果 DatabaseClient 支持）
-            from tools.db import db_client as new_client
+        print(
+            f"✓ 已更新数据库连接：{db_client.mysql_config['host']}:{db_client.mysql_config['port']}/{db_client.mysql_config['database']}")
 
-            # 强制重新加载模块
-            import importlib
-            import tools.db
-            importlib.reload(tools.db)
-
-            from tools.db import db_client as reloaded_client
-            db_client = reloaded_client
-
-            # 测试新连接
-            tables = db_client.get_table_names()
-
-        except Exception as e:
-            print(f"重新加载数据库客户端失败：{e}")
+        # 3. 测试连接
+        if not db_client.test_connection():
             return jsonify({
                 'success': False,
-                'error': f'切换数据库失败：{str(e)}。请重启应用后再试。'
+                'error': '数据库连接失败'
             }), 500
 
-        # 重新生成 schema
-        try:
-            from tools.schema_manager import SchemaManager
-            schema_manager = SchemaManager()
+        # 4. 验证表
+        new_tables = db_client.get_table_names()
+        if not new_tables:
+            return jsonify({
+                'success': False,
+                'error': '新数据库中没有任何表'
+            }), 500
 
-            # 尝试调用 extract_schema 或 refresh_schema 方法
-            if hasattr(schema_manager, 'extract_schema'):
-                schema_manager.extract_schema()
-            elif hasattr(schema_manager, 'refresh_schema'):
-                schema_manager.refresh_schema()
-            elif hasattr(schema_manager, 'generate_schema'):
-                schema_manager.generate_schema()
-            else:
-                print("⚠️ Schema管理器没有刷新方法，跳过Schema重新生成")
+        print(f"✓ 新数据库的表：{new_tables}")
+
+        # ============================================
+        # 5. 关键修复：先清空缓存再生成（避免递归）
+        # ============================================
+        from tools.schema_manager import schema_manager
+
+        schema_file = project_root / 'data' / 'schema.json'
+
+        # 5.1 先清空缓存（避免 load_schema 触发递归）
+        schema_manager._schema_cache = None
+        schema_manager._field_index = {}
+
+        # 5.2 生成一个最小的 schema 占位文件（避免 _infer_foreign_keys 找不到文件）
+        import json
+        minimal_schema = {
+            "database_type": "mysql",
+            "tables": [],
+            "table_list": [],
+            "field_index": {}
+        }
+
+        # 删除旧文件
+        if schema_file.exists():
+            schema_file.unlink()
+            print(f"✓ 已删除旧的 schema.json")
+
+        # 写入占位文件
+        schema_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(schema_file, 'w', encoding='utf-8') as f:
+            json.dump(minimal_schema, f, ensure_ascii=False, indent=2)
+
+        # 5.3 设置缓存为占位 schema（防止 load_schema 又去读文件）
+        schema_manager._schema_cache = minimal_schema
+
+        print(f"✓ 已创建占位 schema.json")
+
+        # 5.4 重新生成完整 schema
+        try:
+            print(f"⏳ 正在生成新数据库的 Schema（可能需要几秒）...")
+
+            new_schema = schema_manager.generate_schema_json(
+                include_sample_values=True,
+                sample_limit=3
+            )
+
+            schema_tables = new_schema.get('table_list', [])
+            print(f"✓ Schema 生成完成，包含 {len(schema_tables)} 张表")
+            print(f"   表名：{schema_tables}")
+
         except Exception as e:
-            print(f"重新生成Schema失败：{e}")
-            # 不阻断切换流程，仅记录警告
+            import traceback
+            traceback.print_exc()
+            return jsonify({
+                'success': False,
+                'error': f'Schema生成失败：{str(e)}'
+            }), 500
+
+        # 6. 清空会话历史
+        sessions_store.clear()
+        print(f"✓ 已清空会话历史")
+
+        print(f"{'=' * 60}")
+        print(f"✅ 数据库切换完成！")
+        print(f"{'=' * 60}\n")
 
         return jsonify({
             'success': True,
             'message': f'已切换到数据库：{db_config["display_name"]}',
             'database': db_config,
-            'tables_count': len(tables) if 'tables' in dir() else 0
+            'tables_count': len(schema_tables),
+            'tables': schema_tables
         })
 
     except Exception as e:
