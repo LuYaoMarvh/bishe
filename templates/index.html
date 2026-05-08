@@ -8,35 +8,39 @@
 </head>
 <body>
     <div class="layout-container">
-        <!-- 顶部导航栏 -->
+        <!-- 顶部导航栏（含数据库选择器） -->
         <div class="top-navbar">
-            <h1>
-                <span></span>
-                NL2SQL 智能查询系统
-            </h1>
-<!--            <div class="db-selector-wrapper">-->
-<!--            <button class="db-selector-btn" onclick="toggleDBDropdown()" id="dbSelectorBtn">-->
-<!--                <span id="currentDBIcon">🎵</span>-->
-<!--                <span id="currentDBName">Chinook</span>-->
-<!--                <span class="dropdown-arrow">▼</span>-->
-<!--            </button>-->
-<!--            <div class="db-dropdown" id="dbDropdown" style="display: none;">-->
-<!--                <div class="db-dropdown-header">切换数据库</div>-->
-<!--                <div class="db-dropdown-list" id="dbDropdownList">-->
-<!--                    &lt;!&ndash; 动态加载数据库列表 &ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="db-dropdown-footer">-->
-<!--                    <button class="db-dropdown-add" onclick="openAddDatabase()">-->
-<!--                        ➕ 添加数据库-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <h1>
+                    <span>🎓</span>
+                    NL2SQL 智能查询系统
+                </h1>
+                <!-- 数据库快速切换下拉菜单 -->
+                <div class="db-selector-wrapper">
+                    <button class="db-selector-btn" onclick="toggleDBDropdown()" id="dbSelectorBtn">
+                        <span id="currentDBIcon">🗄️</span>
+                        <span id="currentDBName">加载中...</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="db-dropdown" id="dbDropdown" style="display: none;">
+                        <div class="db-dropdown-header">切换数据库</div>
+                        <div class="db-dropdown-list" id="dbDropdownList">
+                            <!-- 动态加载 -->
+                        </div>
+                        <div class="db-dropdown-footer">
+                            <button class="db-dropdown-add" onclick="openAddDatabase()">
+                                ➕ 添加数据库
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="nav-buttons">
                 <button class="nav-btn" onclick="toggleHistory()">
-                    <span id="history-toggle-icon"></span> 历史
+                    <span id="history-toggle-icon">📜</span> 历史
                 </button>
-                <button class="nav-btn" onclick="openSettings()"> 设置</button>
-                <button class="nav-btn" onclick="exportResults()"> 导出</button>
+                <button class="nav-btn" onclick="openSettings()">⚙️ 设置</button>
+                <button class="nav-btn" onclick="exportResults()">💾 导出</button>
             </div>
         </div>
 
@@ -44,20 +48,19 @@
             <!-- 左侧历史面板 -->
             <div class="history-panel" id="historyPanel">
                 <div class="history-header">
-                     查询历史
+                    📚 查询历史
                     <button class="clear-history-btn" onclick="clearHistory()" title="清空历史">
-
+                        🗑️
                     </button>
                 </div>
                 <div class="history-list" id="historyList">
-                    <!-- 历史记录将通过 JS 动态加载 -->
                     <div class="history-placeholder">暂无历史记录</div>
                 </div>
             </div>
 
             <!-- 中间内容区 -->
             <div class="content-area">
-                <!-- 仪表盘区域 -->
+                <!-- 仪表盘 -->
                 <div class="dashboard" id="dashboard">
                     <div class="dashboard-card">
                         <div class="card-label">查询总数</div>
@@ -81,10 +84,9 @@
                 <div class="dual-pane">
                     <!-- 左栏：输入+SQL -->
                     <div class="left-pane">
-                        <!-- 查询输入区 -->
                         <div class="query-input-section">
                             <div class="section-title">
-                                 输入您的问题
+                                💬 输入您的问题
                             </div>
                             <div class="input-wrapper">
                                 <textarea
@@ -96,33 +98,31 @@
                                 ></textarea>
                                 <button class="send-btn" onclick="sendQuery()" id="sendBtn">
                                     <span id="sendBtnText">发送</span>
-                                    <span id="sendBtnLoader" style="display: none;"></span>
+                                    <span id="sendBtnLoader" style="display: none;">⏳</span>
                                 </button>
                             </div>
 
-                            <!-- 示例问题 -->
                             <div class="example-questions">
                                 <button class="example-btn" onclick="fillExample('查询所有客户的姓名和邮箱')">
-                                    查询所有客户信息
+                                    💡 查询所有客户信息
                                 </button>
                                 <button class="example-btn" onclick="fillExample('统计每个客户的订单数量')">
-                                    统计订单数量
+                                    💡 统计订单数量
                                 </button>
                                 <button class="example-btn" onclick="fillExample('查找销售额最高的前10个客户')">
-                                    查找高价值客户
+                                    💡 查找高价值客户
                                 </button>
                                 <button class="example-btn" onclick="fillExample('显示最近三个月的销售趋势')">
-                                    显示销售趋势
+                                    💡 显示销售趋势
                                 </button>
                             </div>
                         </div>
 
-                        <!-- SQL展示区 -->
                         <div class="sql-display-section" id="sqlSection">
                             <div class="sql-header">
-                                <div class="sql-title"> 生成的 SQL 查询</div>
+                                <div class="sql-title">📝 生成的 SQL 查询</div>
                                 <button class="copy-btn" onclick="copySQL()" id="copyBtn">
-                                     复制
+                                    📋 复制
                                 </button>
                             </div>
                             <pre class="sql-code" id="sqlCode">-- SQL 查询将在这里显示</pre>
@@ -131,27 +131,23 @@
 
                     <!-- 右栏：结果+答案 -->
                     <div class="right-pane">
-                        <!-- 结果表格 -->
                         <div class="result-table-section" id="resultSection">
                             <div class="section-title">
-                                 查询结果
+                                📊 查询结果
                             </div>
                             <div id="resultContent">
                                 <div class="empty-state">
-                                    <div class="empty-icon"></div>
+                                    <div class="empty-icon">🔍</div>
                                     <div class="empty-text">输入问题开始查询</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 自然语言答案 -->
                         <div class="answer-section" id="answerSection" style="display: none;">
                             <div class="section-title">
-                                 结论与分析
+                                💡 结论与分析
                             </div>
-                            <div class="answer-content" id="answerContent">
-                                <!-- 答案将在这里显示 -->
-                            </div>
+                            <div class="answer-content" id="answerContent"></div>
                         </div>
                     </div>
                 </div>
@@ -163,13 +159,11 @@
     <div class="modal" id="clarificationModal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3> 需要澄清</h3>
+                <h3>❓ 需要澄清</h3>
             </div>
             <div class="modal-body">
                 <p id="clarificationQuestion"></p>
-                <div class="clarification-options" id="clarificationOptions">
-                    <!-- 选项将通过 JS 动态生成 -->
-                </div>
+                <div class="clarification-options" id="clarificationOptions"></div>
                 <div class="clarification-custom">
                     <input
                         type="text"
@@ -186,41 +180,41 @@
         </div>
     </div>
 
-    <!-- 设置模态框 -->
+    <!-- 设置模态框（含数据库管理标签） -->
     <div class="modal" id="settingsModal" style="display: none;">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
-                <h3> 系统设置</h3>
+                <h3>⚙️ 系统设置</h3>
                 <button class="modal-close" onclick="closeSettings()">✕</button>
             </div>
             <div class="modal-body">
                 <!-- 标签页导航 -->
                 <div class="settings-tabs">
-                    <button class="settings-tab active" onclick="switchSettingsTab('basic')">
+                    <button class="settings-tab active" onclick="switchSettingsTab('basic', event)">
                         基本设置
                     </button>
-                    <button class="settings-tab" onclick="switchSettingsTab('database')">
+                    <button class="settings-tab" onclick="switchSettingsTab('database', event)">
                         数据库管理
                     </button>
-                    <button class="settings-tab" onclick="switchSettingsTab('features')">
+                    <button class="settings-tab" onclick="switchSettingsTab('features', event)">
                         功能开关
                     </button>
                 </div>
 
-                <!-- 基本设置标签页 -->
+                <!-- 基本设置 -->
                 <div class="settings-tab-content" id="settings-tab-basic">
-<!--                    <div class="setting-item">-->
-<!--                        <label class="setting-label">数据库连接状态</label>-->
-<!--                        <div class="setting-value db-status">-->
-<!--                            {% if db_status.connected %}-->
-<!--                            <span class="status-badge success">✓ 已连接</span>-->
-<!--                            <span class="status-info">{{ db_status.database }} ({{ db_status.tables_count }} 张表)</span>-->
-<!--                            {% else %}-->
-<!--                            <span class="status-badge error">✗ 连接失败</span>-->
-<!--                            <span class="status-info">{{ db_status.error }}</span>-->
-<!--                            {% endif %}-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="setting-item">
+                        <label class="setting-label">数据库连接状态</label>
+                        <div class="setting-value db-status">
+                            {% if db_status.connected %}
+                            <span class="status-badge success">✓ 已连接</span>
+                            <span class="status-info">{{ db_status.database }} ({{ db_status.tables_count }} 张表)</span>
+                            {% else %}
+                            <span class="status-badge error">✗ 连接失败</span>
+                            <span class="status-info">{{ db_status.error }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
                     <div class="setting-item">
                         <label class="setting-label">LLM 模型</label>
                         <select class="setting-select">
@@ -229,23 +223,26 @@
                             <option>GPT-4</option>
                         </select>
                     </div>
+                    <div class="setting-item">
+                        <label class="setting-label">统计数据</label>
+                        <button class="btn btn-secondary btn-sm" onclick="resetStatistics()">
+                            🔄 重置统计数据
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 数据库管理标签页 -->
+                <!-- 数据库管理 -->
                 <div class="settings-tab-content" id="settings-tab-database" style="display: none;">
                     <div class="db-manager-header">
                         <h4>数据库列表</h4>
                         <button class="btn btn-primary btn-sm" onclick="openAddDatabase()">
-                             添加数据库
+                            ➕ 添加数据库
                         </button>
                     </div>
-
-                    <div class="db-list" id="dbManagementList">
-                        <!-- 动态加载数据库列表 -->
-                    </div>
+                    <div class="db-list" id="dbManagementList"></div>
                 </div>
 
-                <!-- 功能开关标签页 -->
+                <!-- 功能开关 -->
                 <div class="settings-tab-content" id="settings-tab-features" style="display: none;">
                     <div class="setting-item">
                         <label class="setting-label">功能开关</label>
@@ -269,34 +266,27 @@
         </div>
     </div>
 
-    <!-- 加载动画 -->
-    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">正在处理您的请求...</div>
-    </div>
-
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
+    <!-- 添加数据库模态框 -->
     <div class="modal" id="addDatabaseModal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3> 添加新数据库</h3>
+                <h3>➕ 添加新数据库</h3>
                 <button class="modal-close" onclick="closeAddDatabase()">✕</button>
             </div>
             <div class="modal-body">
-                <form id="addDatabaseForm" onsubmit="submitAddDatabase(event)">
+                <form id="addDatabaseForm">
                     <div class="form-group">
                         <label class="form-label">数据库ID *</label>
                         <input type="text" class="form-input" id="dbId"
-                               placeholder="例如：studentdb（唯一标识，小写字母）" required>
-                        <small style="color: #999;">用于内部识别，不可重复</small>
+                               placeholder="例如：studentdb（唯一标识）" required>
+                        <small>用于内部识别，使用小写字母和数字</small>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">数据库名称 *</label>
                         <input type="text" class="form-input" id="dbName"
                                placeholder="例如：student_management" required>
-                        <small style="color: #999;">MySQL 中的实际数据库名</small>
+                        <small>MySQL 中的实际数据库名</small>
                     </div>
 
                     <div class="form-group">
@@ -308,7 +298,7 @@
                     <div class="form-group">
                         <label class="form-label">图标（可选）</label>
                         <input type="text" class="form-input" id="dbIcon"
-                               placeholder="输入 emoji，例如：" maxlength="2">
+                               placeholder="输入 emoji，例如：📚" maxlength="2">
                     </div>
 
                     <div class="form-group">
@@ -340,7 +330,6 @@
                         <label class="form-label">密码</label>
                         <input type="password" class="form-input" id="dbPassword"
                                placeholder="数据库密码（可选）">
-                        <small style="color: #999;">留空则使用环境变量中的密码</small>
                     </div>
 
                     <div id="testConnectionResult" style="margin-top: 16px; display: none;"></div>
@@ -348,20 +337,20 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="modal-btn secondary" onclick="testDatabaseConnection()">
-                    测试连接
+                    🔍 测试连接
                 </button>
-                <button type="submit" class="modal-btn primary" onclick="submitAddDatabase(event)">
-                    保存并连接
+                <button type="button" class="modal-btn primary" onclick="submitAddDatabase(event)">
+                    💾 保存并连接
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 4. 添加数据库切换确认模态框 -->
+    <!-- 切换数据库确认模态框 -->
     <div class="modal" id="switchDBModal" style="display: none;">
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h3>切换数据库</h3>
+                <h3>🔄 切换数据库</h3>
             </div>
             <div class="modal-body">
                 <p>确定要切换到数据库 <strong id="switchDBName"></strong> 吗？</p>
@@ -376,5 +365,12 @@
         </div>
     </div>
 
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在处理您的请求...</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
