@@ -1,9 +1,9 @@
 {
-  "total_queries": 9,
-  "success_queries": 9,
+  "total_queries": 11,
+  "success_queries": 11,
   "failed_queries": 0,
-  "clarification_count": 2,
-  "total_response_time": 186.1430802345276,
+  "clarification_count": 4,
+  "total_response_time": 227.86933135986328,
   "query_history": [
     {
       "question": "查询所有客户的姓名和邮箱",
@@ -76,7 +76,23 @@
       "is_clarification": false,
       "error": null,
       "timestamp": "2026-05-07T20:52:50.047979"
+    },
+    {
+      "question": "查询所有学生的信息",
+      "success": true,
+      "response_time": 16.21630549430847,
+      "is_clarification": true,
+      "error": null,
+      "timestamp": "2026-05-08T11:41:35.554748"
+    },
+    {
+      "question": "查询学生学号",
+      "success": true,
+      "response_time": 25.50994563102722,
+      "is_clarification": true,
+      "error": null,
+      "timestamp": "2026-05-08T16:52:58.898635"
     }
   ],
-  "last_updated": "2026-05-07T20:52:50.049082"
+  "last_updated": "2026-05-08T16:52:58.898635"
 }

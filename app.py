@@ -9,6 +9,7 @@ from pathlib import Path
 from datetime import datetime
 import uuid
 import time
+import os
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent
@@ -334,9 +335,15 @@ def get_current_database():
         }), 500
 
 
+"""
+找到 app.py 中的 switch_database 函数，
+将其替换为以下修复版本
+"""
+
+
 @app.route('/api/databases/switch', methods=['POST'])
 def switch_database():
-    """切换数据库"""
+    """切换数据库（修复版 - 通过修改环境变量实现）"""
     try:
         data = request.json
         db_id = data.get('database_id')
@@ -355,35 +362,68 @@ def switch_database():
                 'error': f'数据库不存在：{db_id}'
             }), 404
 
-        # 切换数据库
-        if db_manager.switch_database(db_id):
-            # 重新初始化数据库客户端
-            global db_client
-            from tools.db import DatabaseClient
-
-            db_client = DatabaseClient(
-                host=db_config['host'],
-                port=db_config['port'],
-                user=db_config['user'],
-                password=db_config.get('password', ''),
-                database=db_config['name']
-            )
-
-            # 重新生成 schema
-            from tools.schema_manager import SchemaManager
-            schema_manager = SchemaManager()
-            schema_manager.extract_schema()
-
-            return jsonify({
-                'success': True,
-                'message': f'已切换到数据库：{db_config["display_name"]}',
-                'database': db_config
-            })
-        else:
+        # 切换数据库配置
+        if not db_manager.switch_database(db_id):
             return jsonify({
                 'success': False,
                 'error': '切换失败'
             }), 500
+
+        # 修改环境变量（让原来的 db_client 重新读取）
+        os.environ['MYSQL_HOST'] = str(db_config['host'])
+        os.environ['MYSQL_PORT'] = str(db_config['port'])
+        os.environ['MYSQL_USER'] = str(db_config['user'])
+        os.environ['MYSQL_PASSWORD'] = str(db_config.get('password', ''))
+        os.environ['MYSQL_DATABASE'] = str(db_config['name'])
+
+        # 重新加载 db_client
+        global db_client
+        try:
+            # 方法1：尝试重新初始化（如果 DatabaseClient 支持）
+            from tools.db import db_client as new_client
+
+            # 强制重新加载模块
+            import importlib
+            import tools.db
+            importlib.reload(tools.db)
+
+            from tools.db import db_client as reloaded_client
+            db_client = reloaded_client
+
+            # 测试新连接
+            tables = db_client.get_table_names()
+
+        except Exception as e:
+            print(f"重新加载数据库客户端失败：{e}")
+            return jsonify({
+                'success': False,
+                'error': f'切换数据库失败：{str(e)}。请重启应用后再试。'
+            }), 500
+
+        # 重新生成 schema
+        try:
+            from tools.schema_manager import SchemaManager
+            schema_manager = SchemaManager()
+
+            # 尝试调用 extract_schema 或 refresh_schema 方法
+            if hasattr(schema_manager, 'extract_schema'):
+                schema_manager.extract_schema()
+            elif hasattr(schema_manager, 'refresh_schema'):
+                schema_manager.refresh_schema()
+            elif hasattr(schema_manager, 'generate_schema'):
+                schema_manager.generate_schema()
+            else:
+                print("⚠️ Schema管理器没有刷新方法，跳过Schema重新生成")
+        except Exception as e:
+            print(f"重新生成Schema失败：{e}")
+            # 不阻断切换流程，仅记录警告
+
+        return jsonify({
+            'success': True,
+            'message': f'已切换到数据库：{db_config["display_name"]}',
+            'database': db_config,
+            'tables_count': len(tables) if 'tables' in dir() else 0
+        })
 
     except Exception as e:
         import traceback
@@ -392,7 +432,6 @@ def switch_database():
             'success': False,
             'error': f'切换失败：{str(e)}'
         }), 500
-
 
 @app.route('/api/databases', methods=['POST'])
 def add_database():

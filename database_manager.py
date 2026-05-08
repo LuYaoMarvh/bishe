@@ -1,9 +1,10 @@
 """
-数据库配置管理器
-支持多数据库配置的保存、加载和切换
+数据库配置管理器（修复版）
+兼容多种 DatabaseClient 初始化方式
 """
 import json
 import os
+import pymysql
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -39,7 +40,7 @@ class DatabaseManager:
                     'host': 'localhost',
                     'port': 3306,
                     'user': 'root',
-                    'password': '',  # 从环境变量读取
+                    'password': '',
                     'description': '音乐商店示例数据库',
                     'is_default': True
                 }
@@ -76,37 +77,17 @@ class DatabaseManager:
         return self.get_database(self.current_db)
 
     def add_database(self, config: Dict) -> bool:
-        """
-        添加新数据库配置
-
-        Args:
-            config: 数据库配置字典，必须包含：
-                - id: 唯一标识符
-                - name: 数据库名称
-                - display_name: 显示名称
-                - host: 主机地址
-                - port: 端口
-                - user: 用户名
-                - password: 密码
-                - icon: 图标（可选）
-                - description: 描述（可选）
-
-        Returns:
-            bool: 是否添加成功
-        """
-        # 验证必填字段
+        """添加新数据库配置"""
         required_fields = ['id', 'name', 'display_name', 'host', 'port', 'user']
         for field in required_fields:
             if field not in config:
                 print(f"缺少必填字段：{field}")
                 return False
 
-        # 检查ID是否已存在
         if self.get_database(config['id']):
             print(f"数据库ID已存在：{config['id']}")
             return False
 
-        # 添加默认值
         if 'icon' not in config:
             config['icon'] = '🗄️'
         if 'description' not in config:
@@ -114,7 +95,6 @@ class DatabaseManager:
         if 'is_default' not in config:
             config['is_default'] = False
 
-        # 添加到配置
         self.configs['databases'].append(config)
         self._save_configs()
 
@@ -126,7 +106,6 @@ class DatabaseManager:
 
         for i, db in enumerate(databases):
             if db['id'] == db_id:
-                # 保留ID不变
                 config['id'] = db_id
                 databases[i] = {**db, **config}
                 self.configs['databases'] = databases
@@ -137,7 +116,6 @@ class DatabaseManager:
 
     def delete_database(self, db_id: str) -> bool:
         """删除数据库配置"""
-        # 不能删除当前使用的数据库
         if db_id == self.current_db:
             print("不能删除当前使用的数据库")
             return False
@@ -146,7 +124,7 @@ class DatabaseManager:
         databases = [db for db in databases if db['id'] != db_id]
 
         if len(databases) == len(self.configs['databases']):
-            return False  # 没有找到要删除的数据库
+            return False
 
         self.configs['databases'] = databases
         self._save_configs()
@@ -155,13 +133,11 @@ class DatabaseManager:
 
     def switch_database(self, db_id: str) -> bool:
         """切换当前数据库"""
-        # 检查数据库是否存在
         db = self.get_database(db_id)
         if not db:
             print(f"数据库不存在：{db_id}")
             return False
 
-        # 切换当前数据库
         self.current_db = db_id
         self.configs['current'] = db_id
         self._save_configs()
@@ -170,36 +146,65 @@ class DatabaseManager:
 
     def test_connection(self, config: Dict) -> Dict:
         """
-        测试数据库连接
+        测试数据库连接（修复版）
+        直接使用 pymysql 测试，不依赖项目的 DatabaseClient
 
         Returns:
             dict: {'success': bool, 'message': str, 'tables_count': int}
         """
         try:
-            # 动态导入以避免循环依赖
-            from tools.db import DatabaseClient
-
-            # 创建临时客户端
-            temp_client = DatabaseClient(
+            # 直接使用 pymysql 进行连接测试
+            connection = pymysql.connect(
                 host=config['host'],
-                port=config['port'],
+                port=int(config['port']),
                 user=config['user'],
                 password=config.get('password', ''),
-                database=config['name']
+                database=config['name'],
+                charset='utf8mb4',
+                connect_timeout=10
             )
 
-            # 测试连接
-            if temp_client.test_connection():
-                tables = temp_client.get_table_names()
+            # 测试查询
+            with connection.cursor() as cursor:
+                cursor.execute("SHOW TABLES")
+                tables = cursor.fetchall()
+                tables_count = len(tables)
+
+            connection.close()
+
+            return {
+                'success': True,
+                'message': '连接成功',
+                'tables_count': tables_count
+            }
+
+        except pymysql.err.OperationalError as e:
+            error_code = e.args[0] if e.args else 0
+            error_msg = e.args[1] if len(e.args) > 1 else str(e)
+
+            # 提供更友好的错误提示
+            if error_code == 1045:
                 return {
-                    'success': True,
-                    'message': '连接成功',
-                    'tables_count': len(tables)
+                    'success': False,
+                    'message': '用户名或密码错误',
+                    'tables_count': 0
+                }
+            elif error_code == 1049:
+                return {
+                    'success': False,
+                    'message': f'数据库 "{config["name"]}" 不存在',
+                    'tables_count': 0
+                }
+            elif error_code == 2003:
+                return {
+                    'success': False,
+                    'message': f'无法连接到 {config["host"]}:{config["port"]}，请检查MySQL服务',
+                    'tables_count': 0
                 }
             else:
                 return {
                     'success': False,
-                    'message': '连接失败',
+                    'message': f'连接失败：{error_msg}',
                     'tables_count': 0
                 }
 
