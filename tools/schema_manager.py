@@ -348,7 +348,7 @@ class SchemaManager:
         """获取每个字段的示例值 (MySQL)"""
         # 安全修复：验证表名，防止SQL注入
         if not validate_identifier(table_name):
-            print(f"⚠️  Invalid table name: {table_name}")
+            print(f"  Invalid table name: {table_name}")
             return {}
         
         safe_table_name = sanitize_identifier(table_name)
@@ -361,7 +361,7 @@ class SchemaManager:
             
             # 安全修复：验证字段名，防止SQL注入
             if not validate_identifier(col_name):
-                print(f"⚠️  Invalid column name: {col_name}")
+                print(f" Invalid column name: {col_name}")
                 continue
             
             safe_col_name = sanitize_identifier(col_name)

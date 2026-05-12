@@ -31,89 +31,134 @@ def load_prompt_template(template_name: str) -> str:
 
 def check_if_needs_clarification(question: str, candidate_sql: Optional[str] = None) -> Dict[str, Any]:
     """
-    判断是否需要澄清的判据
-    
-    判据包括：
-    1. 问题模糊（缺少关键信息：时间范围、具体字段、聚合方式等）
-    2. 存在歧义（多个可能的解释）
-    3. 表/字段匹配不明确
-    4. 聚合函数不明确
-    
+    判断是否需要澄清的判据(修复版v2)
+
+    设计原则:
+    1. 默认不澄清,只在真正模糊时才澄清(避免过度澄清)
+    2. 任何具体的查询动词+查询对象的组合都视为已明确
+    3. 真正需要澄清的场景:疑问代词缺主语、模糊量词缺对象、明确歧义词
+
     Returns:
         {
             "needs_clarification": bool,
-            "reasons": List[str],  # 需要澄清的原因
-            "clarification_type": str  # 澄清类型：time_range, field, aggregation, ambiguity等
+            "reasons": List[str],
+            "clarification_type": str
         }
     """
-    question_lower = question.lower()
+    if not question or not question.strip():
+        return {"needs_clarification": False, "reasons": [], "clarification_type": "general"}
+
+    question_stripped = question.strip()
+    question_lower = question_stripped.lower()
     reasons = []
     clarification_type = None
-    
-    # 明确的时间范围关键词（如果包含这些，时间范围已明确）
-    explicit_time_keywords = ["最近一周", "最近一个月", "最近三个月", "最近一年", 
-                              "本月", "今年", "去年", "上个月", "上周", "昨天", "今天",
-                              "2024", "2023", "2022", "2021", "年", "月", "日", "周"]
-    
-    # 明确的聚合方式关键词（如果包含这些，聚合方式已明确）
-    explicit_aggregation_keywords = ["总数", "总和", "总金额", "总数量", "平均", "平均值", 
-                                     "最大", "最小", "最多", "最少", "count", "sum", "avg", 
-                                     "max", "min", "数量", "金额", "销售额"]
-    
-    # 明确的字段关键词（如果包含这些，字段需求已明确）
-    explicit_field_keywords = ["ID", "名称", "日期", "金额", "数量", "地址", "城市", "国家",
-                              "客户", "订单", "产品", "员工", "发票"]
-    
-    # 判据1: 缺少时间范围（但问题可能涉及时间）
-    # 检查是否包含时间相关词汇
-    has_time_related = any(kw in question for kw in ["时间", "日期", "什么时候", "何时", "最近"])
-    # 检查是否有明确的时间范围
-    has_explicit_time = any(kw in question for kw in explicit_time_keywords)
-    
-    if has_time_related and not has_explicit_time:
-        reasons.append("问题涉及时间但缺少具体时间范围")
-        clarification_type = "time_range"
-    
-    # 判据2: 模糊的聚合需求
-    # 检查是否包含聚合相关词汇
-    has_aggregation_related = any(kw in question_lower for kw in ["统计", "汇总", "分析", "查看", "查询"])
-    # 检查是否有明确的聚合方式
-    has_explicit_aggregation = any(kw in question for kw in explicit_aggregation_keywords)
-    
-    if has_aggregation_related and not has_explicit_aggregation:
-        # 但如果问题已经非常具体（如"查询订单ID"），不需要澄清
-        has_specific_query = any(kw in question for kw in ["查询", "显示", "列出", "查找"]) and \
-                           any(kw in question for kw in explicit_field_keywords)
-        if not has_specific_query:
-            reasons.append("需要聚合但未明确聚合方式（数量/总和/平均等）")
-            if not clarification_type:
-                clarification_type = "aggregation"
-    
-    # 判据3: 模糊的字段需求
-    # 检查是否包含模糊字段词汇
-    has_vague_field = any(kw in question_lower for kw in ["信息", "数据", "详情", "情况"])
-    # 检查是否有明确的字段或查询意图
-    has_explicit_field = any(kw in question for kw in explicit_field_keywords) or \
-                        any(kw in question for kw in ["哪些", "什么", "哪个", "哪"])
-    
-    # 如果问题已经包含明确的时间范围或聚合方式，且查询的是常见实体（客户、订单等），不需要澄清字段
-    has_common_entity = any(kw in question for kw in ["客户", "订单", "产品", "员工", "发票", "销售", "购买"])
-    is_sufficiently_specific = has_explicit_time or has_explicit_aggregation or has_common_entity
-    
-    if has_vague_field and not has_explicit_field and not is_sufficiently_specific:
-        reasons.append("字段需求不明确")
-        if not clarification_type:
-            clarification_type = "field"
-    
-    # 判据4: 存在歧义词汇
-    ambiguous_keywords = ["最好", "最差", "重要", "主要", "相关"]
-    if any(kw in question for kw in ambiguous_keywords):
-        reasons.append("存在可能产生歧义的词汇")
+
+    # =================================================================
+    # 早期返回:如果是明确的"动词+对象"结构,直接判定为不需要澄清
+    # =================================================================
+
+    # 明确的查询动词
+    query_verbs = ["查询", "查找", "查一下", "查看", "看一下", "看看",
+                   "显示", "列出", "罗列", "给出", "给我", "找出", "找到",
+                   "统计", "计算", "求", "算", "数一下",
+                   "排序", "排列", "排名"]
+
+    # 明确的实体类词(常见数据库实体的中文描述,不限定于具体数据库)
+    common_entities = [
+        # 教育领域
+        "学生", "学员", "老师", "教师", "课程", "成绩", "分数", "专业", "学院", "学校", "班级",
+        # 商业领域
+        "客户", "用户", "顾客", "商品", "产品", "货物", "订单", "购买", "销售", "员工", "发票",
+        # 图书领域
+        "图书", "书", "书籍", "读者", "借阅", "出版社", "作者",
+        # 通用属性
+        "姓名", "名字", "名称", "标题", "ID", "编号", "日期", "时间", "年份",
+        "数量", "总数", "总和", "金额", "价格", "价钱", "总价", "总金额",
+        "平均", "最高", "最大", "最多", "最低", "最小", "最少",
+        "地址", "电话", "邮箱", "城市", "国家", "性别", "年龄", "状态",
+    ]
+
+    has_query_verb = any(v in question_stripped for v in query_verbs)
+    has_entity = any(e in question_stripped for e in common_entities)
+
+    # 如果有明确的"查询动词+实体"组合,直接判定为不需要澄清
+    if has_query_verb and has_entity:
+        return {"needs_clarification": False, "reasons": [], "clarification_type": "general"}
+
+    # 如果是"列出所有X"、"所有X"、"全部X"这种明确格式,也不需要澄清
+    if any(p in question_stripped for p in ["所有", "全部", "全体", "整个"]) and has_entity:
+        return {"needs_clarification": False, "reasons": [], "clarification_type": "general"}
+
+    # 如果包含明确条件词(大于/小于/等于/在...里),通常不需要澄清
+    condition_words = ["大于", "小于", "等于", "高于", "低于", "超过", "不超过",
+                       "多于", "少于", "包含", "属于", "在", "不在", "为", "是"]
+    has_condition = any(c in question_stripped for c in condition_words)
+    if has_condition and has_entity:
+        return {"needs_clarification": False, "reasons": [], "clarification_type": "general"}
+
+    # =================================================================
+    # 真正需要澄清的判据
+    # =================================================================
+
+    # 判据1: 极度模糊的代词或短语(如"那个"、"这种"且没有上下文)
+    very_vague_phrases = ["那个", "这个", "那些", "这些", "怎么样", "怎么办", "什么"]
+    is_too_short = len(question_stripped) <= 4
+    has_vague_only = any(p == question_stripped for p in very_vague_phrases) or \
+                     (is_too_short and not has_entity)
+
+    if has_vague_only:
+        reasons.append("查询表述过于简短或模糊,缺少明确的查询对象")
+        clarification_type = "field"
+
+    # 判据2: 包含主观/定性词汇但没有明确定义
+    # 比如"好的学生"、"重要的客户"、"热销的商品"
+    subjective_words = ["好的", "差的", "重要的", "主要的", "热销", "畅销",
+                        "优秀", "突出", "厉害", "牛", "棒", "强",
+                        "成绩好", "成绩差", "厉害的"]
+    if any(w in question_stripped for w in subjective_words):
+        reasons.append("包含主观/定性词汇,需要明确客观判断标准")
         if not clarification_type:
             clarification_type = "ambiguity"
-    
+
+    # 判据3: "信息"、"情况"、"详情"等极度宽泛的词,且没有任何具体实体
+    super_vague = ["情况", "详情", "概况", "状况"]
+    if any(w in question_stripped for w in super_vague):
+        # 但如果同时指明了具体对象(如"张三的情况"),则不算模糊
+        has_specific_target = any(c.isalpha() and c not in common_entities
+                                  for c in question_stripped if ord(c) > 127)
+        # 简化判断:只要包含人名或具体编号则视为已明确
+        if not has_specific_target and not has_entity:
+            reasons.append("查询过于宽泛,需要明确具体字段或属性")
+            if not clarification_type:
+                clarification_type = "field"
+
+    # 判据4: 单纯的数字/年份,没有任何动词或对象(如"2022")
+    if question_stripped.isdigit() and len(question_stripped) <= 4:
+        reasons.append("仅输入数字,无法判断查询意图")
+        if not clarification_type:
+            clarification_type = "general"
+
+    # 判据5: "多少"、"几个"等模糊量词,且后面没有跟具体实体
+    quantity_words_pattern = ["多少", "几个", "多大", "多高", "多长"]
+    for qw in quantity_words_pattern:
+        if qw in question_stripped:
+            # 检查这个量词后面是否紧跟着具体实体
+            idx = question_stripped.index(qw) + len(qw)
+            remaining = question_stripped[idx:].strip()
+            if not remaining or len(remaining) <= 1:
+                reasons.append(f"使用了模糊量词'{qw}'但未明确查询对象")
+                if not clarification_type:
+                    clarification_type = "aggregation"
+                break
+            # 如果后面有实体,则视为已明确
+            if not any(e in remaining for e in common_entities):
+                reasons.append(f"'{qw}'后的对象不够明确")
+                if not clarification_type:
+                    clarification_type = "aggregation"
+                break
+
     needs_clarification = len(reasons) > 0
-    
+
     return {
         "needs_clarification": needs_clarification,
         "reasons": reasons,
@@ -141,8 +186,7 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
     
     dialog_history = state.get("dialog_history") or []
     user_id = state.get("user_id")  #  使用已有的 user_id 字段
-    
-    print(f"\n=== Clarify Node (M7/M9.75) ===")
+
     print(f"Question: {question}")
     if user_id:
         print(f"User ID: {user_id}")
@@ -205,18 +249,18 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
     
     # 如果超过最大澄清次数，不再澄清
     if clarification_count >= max_clarifications:
-        print(f"⚠️  已达到最大澄清次数 ({max_clarifications})，跳过澄清")
+        print(f" 已达到最大澄清次数 ({max_clarifications})，跳过澄清")
         needs_clarification = False
     
     if not needs_clarification:
-        print("✓ No clarification needed")
+        print(" No clarification needed")
         return {
             **state,
             "needs_clarification": False
         }
     
     # 需要澄清，生成澄清问题
-    print(f"⚠️  Needs clarification: {clarification_check['reasons']}")
+    print(f"  Needs clarification: {clarification_check['reasons']}")
     
     try:
         # 加载澄清prompt模板
