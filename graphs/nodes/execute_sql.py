@@ -33,7 +33,7 @@ def execute_sql_node(state: NL2SQLState) -> NL2SQLState:
     """
     candidate_sql = state.get("candidate_sql")
 
-    print(f"\n=== Execute SQL Node (M5) ===")
+    print(f"\n=== Execute SQL Node  ===")
     print(f"SQL: {candidate_sql}")
 
     # Check if SQL exists
@@ -69,17 +69,17 @@ def execute_sql_node(state: NL2SQLState) -> NL2SQLState:
                 if len(result['rows'][0]) > 5:
                     print(f"    ... ({len(result['rows'][0]) - 5} more columns)")
         else:
-            # M5: Enhanced error reporting
+            #  Enhanced error reporting
             error_code = result.get("code", "UNKNOWN_ERROR")
             error_msg = result.get("error", "Unknown error")
             
             print(f"✗ Query failed: {error_msg}")
             
-            # M5: Show security error details if blocked by sandbox
+            # Show security error details if blocked by sandbox
             if error_code and error_code.startswith("SANDBOX_"):
                 print(f"  Security Code: {error_code}")
                 print(f"  Reason: {error_msg}")
-                print(f"  ⚠️  This query was blocked by security sandbox")
+                print(f"  This query was blocked by security sandbox")
 
         return {
             **state,

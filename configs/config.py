@@ -81,7 +81,7 @@ class Config:
             # Database
             "db_type": os.getenv("DB_TYPE", "mysql"),
             
-            # MySQL Configuration (新增)
+            # MySQL Configuration
             "mysql_host": os.getenv("MYSQL_HOST", "localhost"),
             "mysql_port": int(os.getenv("MYSQL_PORT", "3306")),
             "mysql_user": os.getenv("MYSQL_USER", "root"),

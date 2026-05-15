@@ -1,130 +1,810 @@
 {
-  "total_queries": 15,
-  "success_queries": 13,
-  "failed_queries": 2,
+  "total_queries": 184,
+  "success_queries": 175,
+  "failed_queries": 9,
   "clarification_count": 4,
-  "total_response_time": 838.6605169773102,
+  "total_response_time": 3236.1621391773224,
   "query_history": [
     {
-      "question": "查询所有客户的姓名和邮箱",
+      "question": "查询年龄大于200的学生",
       "success": true,
-      "response_time": 13.867605209350586,
+      "response_time": 6.323052644729614,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-02-21T16:21:23.391772"
+      "timestamp": "2026-05-12T21:35:55.604214"
     },
     {
-      "question": "查询人物",
+      "question": "查询所有学生的姓名",
       "success": true,
-      "response_time": 28.375946283340454,
-      "is_clarification": true,
-      "error": null,
-      "timestamp": "2026-02-21T16:23:43.858924"
-    },
-    {
-      "question": "你是谁",
-      "success": true,
-      "response_time": 3.4609615802764893,
+      "response_time": 10.05332612991333,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-02-22T12:55:04.864752"
+      "timestamp": "2026-05-12T21:37:02.084710"
     },
     {
-      "question": "查找销售额最高的前10个客户",
+      "question": "列出所有专业",
       "success": true,
-      "response_time": 15.186039924621582,
+      "response_time": 6.212909698486328,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-02-22T12:55:31.004824"
+      "timestamp": "2026-05-12T21:37:11.368778"
     },
     {
-      "question": "查询人物",
+      "question": "显示所有学院信息",
       "success": true,
-      "response_time": 19.902233839035034,
-      "is_clarification": true,
-      "error": null,
-      "timestamp": "2026-02-22T12:58:30.295678"
-    },
-    {
-      "question": "查询所有客户的姓名和邮箱",
-      "success": true,
-      "response_time": 55.34717583656311,
+      "response_time": 9.843572616577148,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-03-16T15:53:32.076832"
+      "timestamp": "2026-05-12T21:37:24.270129"
     },
     {
-      "question": "显示最近三个月的销售趋势",
+      "question": "查所有图书的书名",
       "success": true,
-      "response_time": 24.766623973846436,
+      "response_time": 6.84485125541687,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-03-16T16:13:50.875785"
+      "timestamp": "2026-05-12T21:37:42.848802"
     },
     {
-      "question": "查找销售额最高的前10个客户",
+      "question": "列出所有读者",
       "success": true,
-      "response_time": 9.353368282318115,
+      "response_time": 21.572547435760498,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-05-07T19:23:41.856347"
+      "timestamp": "2026-05-12T21:38:07.503140"
     },
     {
-      "question": "统计每个客户的订单数量",
+      "question": "查询所有商品",
       "success": true,
-      "response_time": 15.883125305175781,
+      "response_time": 29.909684896469116,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-05-07T20:52:50.047979"
+      "timestamp": "2026-05-12T21:38:48.950344"
     },
     {
-      "question": "查询所有学生的信息",
+      "question": "显示所有客户的姓名和电话",
       "success": true,
-      "response_time": 16.21630549430847,
-      "is_clarification": true,
+      "response_time": 11.537709951400757,
+      "is_clarification": false,
       "error": null,
-      "timestamp": "2026-05-08T11:41:35.554748"
+      "timestamp": "2026-05-12T21:39:03.570444"
     },
     {
-      "question": "查询学生学号",
+      "question": "查所有课程的名称",
       "success": true,
-      "response_time": 25.50994563102722,
-      "is_clarification": true,
+      "response_time": 6.034610986709595,
+      "is_clarification": false,
       "error": null,
-      "timestamp": "2026-05-08T16:52:58.898635"
+      "timestamp": "2026-05-12T21:39:20.797905"
     },
     {
-      "question": "查询所有学生",
+      "question": "所有出版社",
+      "success": true,
+      "response_time": 11.414294481277466,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:39:43.617817"
+    },
+    {
+      "question": "查所有订单",
+      "success": true,
+      "response_time": 1.6483392715454102,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:39:56.759250"
+    },
+    {
+      "question": "查询成绩大于90分的成绩记录",
+      "success": true,
+      "response_time": 22.589409828186035,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:40:30.735011"
+    },
+    {
+      "question": "查询2022年入学的学生",
+      "success": true,
+      "response_time": 25.424149990081787,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:40:59.240294"
+    },
+    {
+      "question": "查询性别为男的学生姓名",
+      "success": true,
+      "response_time": 7.287935256958008,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:41:09.592719"
+    },
+    {
+      "question": "查询库存大于10的图书",
+      "success": true,
+      "response_time": 5.848862886428833,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:41:26.869614"
+    },
+    {
+      "question": "查询状态为已借出的借阅记录",
+      "success": true,
+      "response_time": 18.025805234909058,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:41:48.010886"
+    },
+    {
+      "question": "查询价格小于100的商品",
+      "success": true,
+      "response_time": 10.33270812034607,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:42:09.601620"
+    },
+    {
+      "question": "查询订单金额大于500的订单",
+      "success": true,
+      "response_time": 1.610849380493164,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:42:14.303831"
+    },
+    {
+      "question": "查询学分大于3的课程",
+      "success": true,
+      "response_time": 10.5118567943573,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:42:35.993946"
+    },
+    {
+      "question": "查询2024年之后借出的记录",
+      "success": true,
+      "response_time": 5.627645969390869,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:42:52.861276"
+    },
+    {
+      "question": "查询库存为0的商品",
+      "success": true,
+      "response_time": 5.5303120613098145,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:43:09.621262"
+    },
+    {
+      "question": "查询学生总数",
+      "success": true,
+      "response_time": 6.0921430587768555,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:43:26.995269"
+    },
+    {
+      "question": "所有成绩的平均分",
+      "success": true,
+      "response_time": 5.896800994873047,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:43:35.970147"
+    },
+    {
+      "question": "查询最高分",
+      "success": true,
+      "response_time": 1.2866523265838623,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:43:40.337867"
+    },
+    {
+      "question": "所有图书的总库存",
+      "success": true,
+      "response_time": 4.6375892162323,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:44:08.556242"
+    },
+    {
+      "question": "查询订单总金额",
+      "success": true,
+      "response_time": 5.167050361633301,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:44:25.003986"
+    },
+    {
+      "question": "客户总数",
+      "success": true,
+      "response_time": 5.048908233642578,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:44:33.113875"
+    },
+    {
+      "question": "商品的平均价格",
+      "success": true,
+      "response_time": 4.848908185958862,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:44:41.054259"
+    },
+    {
+      "question": "课程总数",
+      "success": true,
+      "response_time": 5.117321252822876,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:44:57.393878"
+    },
+    {
+      "question": "最低成绩是多少",
+      "success": true,
+      "response_time": 4.811949253082275,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:45:05.298090"
+    },
+    {
+      "question": "统计每个专业的学生人数",
+      "success": true,
+      "response_time": 11.443848609924316,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:45:21.882176"
+    },
+    {
+      "question": "每门课程的平均成绩",
+      "success": true,
+      "response_time": 10.619874954223633,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:45:35.568044"
+    },
+    {
+      "question": "按学院分组统计学生数",
+      "success": true,
+      "response_time": 10.946854829788208,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:45:49.608855"
+    },
+    {
+      "question": "每个分类下的图书数量",
+      "success": true,
+      "response_time": 10.054276466369629,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:46:10.915315"
+    },
+    {
+      "question": "每个读者的借阅次数",
+      "success": true,
+      "response_time": 12.220324039459229,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:46:26.227997"
+    },
+    {
+      "question": "每个客户的订单总数",
+      "success": true,
+      "response_time": 11.44819164276123,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:46:49.261301"
+    },
+    {
+      "question": "每个分类下的商品平均价格",
+      "success": true,
+      "response_time": 12.002235651016235,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:47:04.344434"
+    },
+    {
+      "question": "按订单状态统计订单数",
+      "success": true,
+      "response_time": 7.900923252105713,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:47:15.330871"
+    },
+    {
+      "question": "每个学生的总成绩",
+      "success": true,
+      "response_time": 19.34709143638611,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:47:45.965292"
+    },
+    {
+      "question": "按出版社分组统计图书数量",
+      "success": true,
+      "response_time": 9.730875492095947,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:48:07.103959"
+    },
+    {
+      "question": "按成绩从高到低排序所有成绩",
+      "success": true,
+      "response_time": 93.18808388710022,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:49:51.498665"
+    },
+    {
+      "question": "按入学年份升序列出学生",
+      "success": true,
+      "response_time": 85.97409653663635,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:51:20.546486"
+    },
+    {
+      "question": "按库存从多到少排列图书",
+      "success": true,
+      "response_time": 17.321037769317627,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:51:49.150808"
+    },
+    {
+      "question": "按价格从低到高排序商品",
+      "success": true,
+      "response_time": 58.0015823841095,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:52:58.362467"
+    },
+    {
+      "question": "订单按日期降序排列",
+      "success": true,
+      "response_time": 1.7345478534698486,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:53:03.192246"
+    },
+    {
+      "question": "查询每个学生的姓名和所属专业名称",
+      "success": true,
+      "response_time": 19.096423864364624,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:53:33.438931"
+    },
+    {
+      "question": "查询张三的所有课程成绩",
+      "success": true,
+      "response_time": 6.78520131111145,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:53:43.308223"
+    },
+    {
+      "question": "查询计算机学院的所有学生",
+      "success": true,
+      "response_time": 7.269254922866821,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:53:53.662930"
+    },
+    {
+      "question": "查询每本图书的书名和出版社",
+      "success": true,
+      "response_time": 12.089879989624023,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:54:17.003492"
+    },
+    {
+      "question": "查询李四借过哪些书",
+      "success": true,
+      "response_time": 6.476083755493164,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:54:26.561838"
+    },
+    {
+      "question": "查询每个订单的客户姓名",
+      "success": true,
+      "response_time": 12.253251075744629,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:54:50.139060"
+    },
+    {
+      "question": "查询订单中购买的商品名称",
       "success": false,
-      "response_time": 155.88372898101807,
+      "response_time": 1.8595542907714844,
+      "is_clarification": false,
+      "error": "Database error: (1054, \"Unknown column 'p.name' in 'field list'\")",
+      "timestamp": "2026-05-12T21:54:55.070252"
+    },
+    {
+      "question": "查询电子产品类的所有商品",
+      "success": true,
+      "response_time": 4.803002834320068,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:55:02.954526"
+    },
+    {
+      "question": "小说类图书有哪些",
+      "success": true,
+      "response_time": 5.804437160491943,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:55:20.039567"
+    },
+    {
+      "question": "数据库课程的所有成绩",
+      "success": false,
+      "response_time": 2.5310168266296387,
+      "is_clarification": false,
+      "error": "Database error: (1054, \"Unknown column 's.student_id' in 'field list'\")",
+      "timestamp": "2026-05-12T21:55:33.723667"
+    },
+    {
+      "question": "成绩最高的前5名学生",
+      "success": true,
+      "response_time": 8.88854169845581,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:55:47.741903"
+    },
+    {
+      "question": "库存最多的前3本书",
+      "success": true,
+      "response_time": 8.512861251831055,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:56:07.580792"
+    },
+    {
+      "question": "价格最贵的前5个商品",
+      "success": true,
+      "response_time": 11.85973834991455,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:56:30.654743"
+    },
+    {
+      "question": "金额最高的前3笔订单",
+      "success": true,
+      "response_time": 11.10705018043518,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:56:44.857152"
+    },
+    {
+      "question": "学分最高的前3门课程",
+      "success": true,
+      "response_time": 6.96955132484436,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:57:02.982205"
+    },
+    {
+      "question": "查询成绩高于平均分的学生",
+      "success": true,
+      "response_time": 20.093303442001343,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:57:28.196783"
+    },
+    {
+      "question": "库存最多的图书的信息",
+      "success": true,
+      "response_time": 8.735730171203613,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:57:48.237964"
+    },
+    {
+      "question": "价格高于平均价的商品",
+      "success": true,
+      "response_time": 12.481079339981079,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:58:12.010499"
+    },
+    {
+      "question": "从未下过订单的客户",
+      "success": true,
+      "response_time": 5.475277662277222,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:58:20.568800"
+    },
+    {
+      "question": "从未被借阅过的图书",
+      "success": true,
+      "response_time": 4.90804648399353,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:58:36.684460"
+    },
+    {
+      "question": "查询所有的名字",
+      "success": true,
+      "response_time": 16.266616582870483,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:59:04.072903"
+    },
+    {
+      "question": "多少订单",
+      "success": true,
+      "response_time": 7.15963888168335,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T21:59:43.074025"
+    },
+    {
+      "question": "图书的名字和作者",
+      "success": true,
+      "response_time": 10.605791330337524,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:00:04.952177"
+    },
+    {
+      "question": "学生的情况",
+      "success": true,
+      "response_time": 84.46493005752563,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:02:17.012167"
+    },
+    {
+      "question": "最多的是什么",
+      "success": true,
+      "response_time": 7.166275978088379,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:02:54.156065"
+    },
+    {
+      "question": "查一下2022",
+      "success": true,
+      "response_time": 18.628345727920532,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:03:23.989768"
+    },
+    {
+      "question": "你好",
+      "success": true,
+      "response_time": 2.8546266555786133,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:04:12.020432"
+    },
+    {
+      "question": "你能做什么",
+      "success": true,
+      "response_time": 9.585963010787964,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:04:24.683792"
+    },
+    {
+      "question": "谢谢",
+      "success": true,
+      "response_time": 3.4538424015045166,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:04:31.197885"
+    },
+    {
+      "question": "再见",
+      "success": true,
+      "response_time": 1.7362546920776367,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:04:36.028438"
+    },
+    {
+      "question": "今天天气怎么样",
+      "success": true,
+      "response_time": 1.4627549648284912,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:04:40.546684"
+    },
+    {
+      "question": "购买记录有哪些",
+      "success": true,
+      "response_time": 31.485625743865967,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:05:23.424730"
+    },
+    {
+      "question": "货物的价格",
+      "success": true,
+      "response_time": 21.516554832458496,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:05:48.019972"
+    },
+    {
+      "question": "借阅人的信息",
+      "success": true,
+      "response_time": 23.563664436340332,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:06:22.919225"
+    },
+    {
+      "question": "学员的姓名",
+      "success": true,
+      "response_time": 9.144744157791138,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:06:43.245160"
+    },
+    {
+      "question": "查询张三的信息",
+      "success": true,
+      "response_time": 5.790537357330322,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:07:22.289279"
+    },
+    {
+      "question": "他的成绩呢",
+      "success": true,
+      "response_time": 8.452092409133911,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:07:33.829657"
+    },
+    {
+      "question": "查询李四的订单",
+      "success": true,
+      "response_time": 10.368082284927368,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:07:53.343828"
+    },
+    {
+      "question": "他买了什么",
+      "success": true,
+      "response_time": 9.507388591766357,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:08:05.937904"
+    },
+    {
+      "question": "再查一下那本书的库存",
+      "success": true,
+      "response_time": 8.837522745132446,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:08:23.908154"
+    },
+    {
+      "question": "麻烦帮我看一下我们学院里那些成绩还不错的小伙伴们都有谁啊",
+      "success": true,
+      "response_time": 14.094472169876099,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:08:49.239858"
+    },
+    {
+      "question": "我想知道咱们卖得最火的那个东西是啥",
+      "success": true,
+      "response_time": 6.892169952392578,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:09:07.371454"
+    },
+    {
+      "question": "请问咱们图书馆有没有那种很久都没人借过的书",
+      "success": true,
+      "response_time": 31.317901849746704,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:09:50.102420"
+    },
+    {
+      "question": "看下哪个老师带的课同学们考得比较好",
+      "success": true,
+      "response_time": 13.648636817932129,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:10:14.964025"
+    },
+    {
+      "question": "????????",
+      "success": true,
+      "response_time": 3.862255096435547,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:10:55.391657"
+    },
+    {
+      "question": "SELECT * FROM product",
+      "success": true,
+      "response_time": 30.134570837020874,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:11:36.837422"
+    },
+    {
+      "question": "查询不存在的表xyzabc",
+      "success": false,
+      "response_time": 1.7584211826324463,
+      "is_clarification": false,
+      "error": "Database error: (1146, \"Table 'library_system.xyzabc' doesn't exist\")",
+      "timestamp": "2026-05-12T22:11:49.854299"
+    },
+    {
+      "question": "查询年龄大于200的学生",
+      "success": true,
+      "response_time": 6.831460237503052,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-12T22:12:07.887394"
+    },
+    {
+      "question": "查询所有书名",
+      "success": true,
+      "response_time": 7.84753680229187,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-13T13:43:15.505158"
+    },
+    {
+      "question": "查询书",
+      "success": true,
+      "response_time": 64.9763171672821,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-13T13:45:22.946288"
+    },
+    {
+      "question": "查询书",
+      "success": false,
+      "response_time": 119.5688407421112,
       "is_clarification": false,
       "error": "Recursion limit of 25 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/GRAPH_RECURSION_LIMIT",
-      "timestamp": "2026-05-08T17:15:36.285212"
+      "timestamp": "2026-05-13T13:47:29.036287"
     },
     {
-      "question": "查询所有学生",
+      "question": "查询书",
       "success": false,
-      "response_time": 437.71406626701355,
+      "response_time": 2.413318157196045,
       "is_clarification": false,
-      "error": "Recursion limit of 25 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/GRAPH_RECURSION_LIMIT",
-      "timestamp": "2026-05-08T17:23:25.931491"
+      "error": "Database error: (1146, \"Table 'chinook.book' doesn't exist\")",
+      "timestamp": "2026-05-13T13:52:45.112169"
     },
     {
-      "question": "查询各个学院的学生数量",
-      "success": true,
-      "response_time": 12.298667430877686,
+      "question": "查询书的信息",
+      "success": false,
+      "response_time": 1.9333512783050537,
       "is_clarification": false,
-      "error": null,
-      "timestamp": "2026-05-08T18:31:24.920761"
+      "error": "Database error: (1146, \"Table 'chinook.book' doesn't exist\")",
+      "timestamp": "2026-05-13T13:53:13.390995"
     },
     {
-      "question": "查询学号总数",
+      "question": "查询商品",
       "success": true,
-      "response_time": 4.894722938537598,
+      "response_time": 8.669119358062744,
       "is_clarification": false,
       "error": null,
-      "timestamp": "2026-05-08T18:40:24.066910"
+      "timestamp": "2026-05-13T13:54:41.174184"
+    },
+    {
+      "question": "查询贵的商品",
+      "success": true,
+      "response_time": 6.694546699523926,
+      "is_clarification": false,
+      "error": null,
+      "timestamp": "2026-05-13T13:55:05.157578"
     }
   ],
-  "last_updated": "2026-05-08T18:40:24.067910"
+  "last_updated": "2026-05-13T13:55:05.158589"
 }

@@ -1,7 +1,7 @@
 """
-测试 Dialog Clarification (M7/M9.75) 功能
+测试 Dialog Clarification功能
 验证多轮对话与澄清问题功能是否正常工作
-M9.75: 测试上下文记忆管理器与澄清功能的集成
+测试上下文记忆管理器与澄清功能的集成
 """
 import sys
 from pathlib import Path
@@ -179,13 +179,13 @@ def test_parse_clarification_response():
 
 
 def test_clarify_node_without_answer():
-    """测试澄清节点（无用户回答）- M9.75: 使用上下文记忆管理器"""
+    """测试澄清节点（无用户回答）- 使用上下文记忆管理器"""
     print("\n" + "=" * 60)
-    print("测试 3: 澄清节点 - 生成澄清问题 (M9.75)")
+    print("测试 3: 澄清节点 - 生成澄清问题 ")
     print("=" * 60)
     
     session_id = "test_session_001"
-    # M9.75: 清理之前的上下文管理器
+    # 清理之前的上下文管理器
     clear_context_manager(session_id)
     
     state: NL2SQLState = {
@@ -217,7 +217,7 @@ def test_clarify_node_without_answer():
     }
     
     try:
-        # M9.75: 初始化上下文管理器并添加查询
+        # 初始化上下文管理器并添加查询
         context_manager = get_context_manager(session_id)
         context_manager.add_query(state["question"])
         
@@ -229,7 +229,7 @@ def test_clarify_node_without_answer():
         
         result = clarify_node(state)
         
-        # M9.75: 检查上下文管理器是否正确更新
+        #  检查上下文管理器是否正确更新
         history_after = context_manager.get_all_history()
         print(f"  澄清节点执行后历史长度: {len(history_after)}")
         
@@ -244,7 +244,7 @@ def test_clarify_node_without_answer():
             print(f"  澄清次数: {result.get('clarification_count')}")
             print(f"  对话历史长度: {len(result.get('dialog_history', []))}")
             
-            # M9.75: 验证上下文管理器是否包含澄清问题
+            # 验证上下文管理器是否包含澄清问题
             if len(history_after) >= 2:
                 last_entry = history_after[-1]
                 if last_entry.get("type") == "clarification":
@@ -253,10 +253,10 @@ def test_clarify_node_without_answer():
                     if last_entry.get("options"):
                         print(f"  澄清选项数量: {len(last_entry['options'])}")
                 else:
-                    print(f"⚠️  上下文管理器未正确记录澄清问题，最后一条类型: {last_entry.get('type')}")
+                    print(f"  上下文管理器未正确记录澄清问题，最后一条类型: {last_entry.get('type')}")
                     return False
             else:
-                print("⚠️  历史记录数量不足，无法验证澄清问题")
+                print("  历史记录数量不足，无法验证澄清问题")
                 return False
             
             # 验证历史记录顺序：查询 -> 澄清问题
@@ -278,13 +278,13 @@ def test_clarify_node_without_answer():
 
 
 def test_clarify_node_with_answer():
-    """测试澄清节点（有用户回答）- M9.75: 使用上下文记忆管理器"""
+    """测试澄清节点（有用户回答）-  使用上下文记忆管理器"""
     print("\n" + "=" * 60)
-    print("测试 4: 澄清节点 - 处理用户回答 (M9.75)")
+    print("测试 4: 澄清节点 - 处理用户回答 ")
     print("=" * 60)
     
     session_id = "test_session_002"
-    # M9.75: 清理之前的上下文管理器
+    #  清理之前的上下文管理器
     clear_context_manager(session_id)
     
     state: NL2SQLState = {
@@ -316,7 +316,7 @@ def test_clarify_node_with_answer():
     }
     
     try:
-        # M9.75: 初始化上下文管理器并添加历史记录
+        # 初始化上下文管理器并添加历史记录
         context_manager = get_context_manager(session_id)
         context_manager.add_query(state["question"])
         context_manager.add_clarification(
@@ -333,7 +333,7 @@ def test_clarify_node_with_answer():
         
         result = clarify_node(state)
         
-        # M9.75: 检查上下文管理器是否正确更新
+        #  检查上下文管理器是否正确更新
         history_after = context_manager.get_all_history()
         print(f"  处理用户回答后历史长度: {len(history_after)}")
         
@@ -345,14 +345,14 @@ def test_clarify_node_with_answer():
             print(f"  不再需要澄清: {not result.get('needs_clarification', True)}")
             print(f"  对话历史长度: {len(result.get('dialog_history', []))}")
             
-            # M9.75: 验证上下文管理器是否包含澄清回答
+            #  验证上下文管理器是否包含澄清回答
             if len(history_after) >= 3:
                 last_entry = history_after[-1]
                 if last_entry.get("type") == "clarification_answer":
                     print("✓ 上下文管理器已正确记录澄清回答")
                     print(f"  澄清回答内容: {last_entry.get('content', '')}")
                 else:
-                    print(f"⚠️  上下文管理器未正确记录澄清回答，最后一条类型: {last_entry.get('type')}")
+                    print(f" 上下文管理器未正确记录澄清回答，最后一条类型: {last_entry.get('type')}")
                     return False
                 
                 # 验证历史记录顺序：查询 -> 澄清问题 -> 澄清回答
@@ -360,7 +360,7 @@ def test_clarify_node_with_answer():
                 assert history_after[1]["type"] == "clarification", "第二条应该是澄清问题"
                 assert history_after[-1]["type"] == "clarification_answer", "最后一条应该是澄清回答"
             else:
-                print("⚠️  历史记录数量不足，无法验证澄清回答")
+                print("  历史记录数量不足，无法验证澄清回答")
                 return False
             
             return True
@@ -459,14 +459,14 @@ def test_should_ask_clarification():
 
 
 def test_full_clarification_flow():
-    """测试完整的澄清流程（需要LLM和数据库）- M9.75: 使用上下文记忆管理器"""
+    """测试完整的澄清流程（需要LLM和数据库）-: 使用上下文记忆管理器"""
     print("\n" + "=" * 60)
-    print("测试 6: 完整澄清流程（端到端测试）(M9.75)")
+    print("测试 6: 完整澄清流程（端到端测试）")
     print("=" * 60)
     print("注意：此测试需要LLM API和数据库连接")
     
     session_id = "test_full_flow"
-    # M9.75: 清理之前的上下文管理器
+    #  清理之前的上下文管理器
     clear_context_manager(session_id)
     
     try:
@@ -478,7 +478,7 @@ def test_full_clarification_flow():
             user_id="test_user"
         )
         
-        # M9.75: 检查上下文管理器
+        #  检查上下文管理器
         context_manager = get_context_manager(session_id)
         history1 = context_manager.get_all_history()
         print(f"  第一轮后上下文历史长度: {len(history1)}")
@@ -494,7 +494,7 @@ def test_full_clarification_flow():
                 for i, opt in enumerate(result1.get("clarification_options", []), 1):
                     print(f"    {i}. {opt}")
             
-            # M9.75: 验证上下文管理器包含澄清问题
+            #  验证上下文管理器包含澄清问题
             if len(history1) >= 2:
                 last_entry = history1[-1]
                 if last_entry.get("type") == "clarification":
@@ -513,7 +513,7 @@ def test_full_clarification_flow():
                 clarification_answer=user_answer
             )
             
-            # M9.75: 检查上下文管理器更新
+            # 检查上下文管理器更新
             history2 = context_manager.get_all_history()
             print(f"  第二轮后上下文历史长度: {len(history2)}")
             
@@ -524,18 +524,18 @@ def test_full_clarification_flow():
                 print("✓ 第二轮：成功处理用户回答")
                 print(f"  规范化问题: {normalized_question}")
                 
-                # M9.75: 验证上下文管理器包含澄清回答
+                #  验证上下文管理器包含澄清回答
                 if len(history2) >= 3:
                     last_entry = history2[-1]
                     if last_entry.get("type") == "clarification_answer":
                         print("✓ 上下文管理器已记录澄清回答")
                     else:
-                        print(f"⚠️  上下文管理器未记录澄清回答，类型: {last_entry.get('type')}")
+                        print(f"  上下文管理器未记录澄清回答，类型: {last_entry.get('type')}")
                 
                 if candidate_sql:
                     print(f"  生成的SQL: {candidate_sql[:100]}...")
                     
-                    # M9.75: 验证完整流程的历史记录顺序
+                    #  验证完整流程的历史记录顺序
                     print("\n  验证历史记录顺序:")
                     for i, entry in enumerate(history2):
                         entry_type = entry.get("type", "unknown")
@@ -544,13 +544,13 @@ def test_full_clarification_flow():
                     
                     return True
                 else:
-                    print("⚠️  SQL未生成（可能流程中断）")
+                    print("  SQL未生成（可能流程中断）")
                     return False
             else:
                 print("✗ 第二轮：处理用户回答失败")
                 return False
         else:
-            print("⚠️  第一轮：未生成澄清问题（可能问题已经足够明确）")
+            print("  第一轮：未生成澄清问题（可能问题已经足够明确）")
             return False
             
     except Exception as e:
@@ -564,9 +564,9 @@ def test_full_clarification_flow():
 
 
 def test_max_clarifications():
-    """测试最大澄清次数限制 - M9.75: 使用上下文记忆管理器"""
+    """测试最大澄清次数限制 -  使用上下文记忆管理器"""
     print("\n" + "=" * 60)
-    print("测试 7: 最大澄清次数限制 (M9.75)")
+    print("测试 7: 最大澄清次数限制 ")
     print("=" * 60)
     
     session_id = "test_max_clarify"
@@ -601,7 +601,7 @@ def test_max_clarifications():
     }
     
     try:
-        # M9.75: 初始化上下文管理器
+        # 初始化上下文管理器
         context_manager = get_context_manager(session_id)
         context_manager.add_query(state["question"])
         
@@ -612,7 +612,7 @@ def test_max_clarifications():
             print(f"  澄清次数: {result.get('clarification_count')}")
             print(f"  需要澄清: {result.get('needs_clarification')}")
             
-            # M9.75: 验证上下文管理器未添加新的澄清问题
+            # 验证上下文管理器未添加新的澄清问题
             history = context_manager.get_all_history()
             print(f"  上下文历史长度: {len(history)}")
             # 应该只有查询，没有澄清问题
@@ -637,9 +637,9 @@ def test_max_clarifications():
 
 
 def test_context_memory_integration():
-    """测试上下文记忆管理器与澄清功能的集成 - M9.75"""
+    """测试上下文记忆管理器与澄清功能的集成 """
     print("\n" + "=" * 60)
-    print("测试 8: 上下文记忆管理器集成 (M9.75)")
+    print("测试 8: 上下文记忆管理器集成")
     print("=" * 60)
     
     session_id = "test_context_integration"
@@ -713,9 +713,9 @@ def test_context_memory_integration():
 
 
 def test_multi_turn_clarification():
-    """测试多轮对话中的澄清功能 - M9.75"""
+    """测试多轮对话中的澄清功能 """
     print("\n" + "=" * 60)
-    print("测试 9: 多轮对话澄清 (M9.75)")
+    print("测试 9: 多轮对话澄清")
     print("=" * 60)
     print("注意：此测试需要LLM API支持")
     
@@ -826,7 +826,7 @@ def test_multi_turn_clarification():
 def main():
     """运行所有测试"""
     print("=" * 60)
-    print("M7/M9.75 Dialog Clarification 功能测试")
+    print(" Dialog Clarification 功能测试")
     print("=" * 60)
     
     results = []

@@ -1,5 +1,5 @@
 """
-测试 Answer Builder (M9) 功能
+测试 Answer Builder 功能
 验证SQL结果转自然语言答案功能是否正常工作
 """
 import sys
@@ -278,7 +278,7 @@ def test_answer_validation():
 def main():
     """运行所有测试"""
     print("=" * 60)
-    print("M9 Answer Builder 功能测试")
+    print(" Answer Builder 功能测试")
     print("=" * 60)
     
     results = []
@@ -311,10 +311,10 @@ def main():
     print(f"\n总计: {passed}/{total} 通过")
     
     if passed == total:
-        print("\n🎉 所有测试通过！")
+        print("\n 所有测试通过！")
         return 0
     else:
-        print(f"\n⚠️  有 {total - passed} 个测试失败")
+        print(f"\n  有 {total - passed} 个测试失败")
         return 1
 
 

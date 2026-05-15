@@ -24,7 +24,7 @@ def monitor_performance(func):
         }
         
         # 打印
-        print(f"⏱️  {node_name} took {elapsed:.3f}s")
+        print(f"  {node_name} took {elapsed:.3f}s")
         
         # 存入全局（用于统计）
         if session_id not in _performance_data:

@@ -1,20 +1,20 @@
 {
   "database_type": "mysql",
-  "generated_at": "2026-05-08T18:30:51.830905",
+  "generated_at": "2026-05-13T13:53:51.695790",
   "tables": [
     {
-      "name": "college",
+      "name": "category",
       "description": "",
       "columns": [
         {
-          "name": "college_id",
+          "name": "category_id",
           "type": "int(11)",
           "primary_key": true,
           "not_null": true,
           "description": "",
           "aliases": [
-            "college编号",
-            "college_id"
+            "category_id",
+            "category编号"
           ],
           "sample_values": [
             1,
@@ -23,359 +23,75 @@
           ]
         },
         {
-          "name": "college_name",
+          "name": "category_name",
           "type": "varchar(50)",
           "primary_key": false,
           "not_null": true,
           "description": "",
           "aliases": [
-            "college名称",
-            "college_name"
+            "category名称",
+            "category_name"
           ],
           "sample_values": [
-            "计算机科学与技术学院",
-            "经济管理学院",
-            "外国语学院"
+            "电子产品",
+            "服装",
+            "食品"
           ]
         },
         {
-          "name": "dean",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "dean"
-          ],
-          "sample_values": [
-            "张明",
-            "李华",
-            "王芳"
-          ]
-        },
-        {
-          "name": "established_year",
+          "name": "parent_id",
           "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "established_year"
+            "parent编号",
+            "parent_id"
           ],
           "sample_values": [
-            2000,
-            1995,
-            1998
+            0,
+            1,
+            2
           ]
         }
       ],
       "foreign_keys": [],
-      "row_count": 5
+      "row_count": 9
     },
     {
-      "name": "course",
+      "name": "customer",
       "description": "",
       "columns": [
         {
-          "name": "course_id",
-          "type": "varchar(10)",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "course_id",
-            "course编号"
-          ],
-          "sample_values": [
-            "CS101",
-            "CS102",
-            "CS103"
-          ]
-        },
-        {
-          "name": "course_name",
-          "type": "varchar(50)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "course_name",
-            "course名称"
-          ],
-          "sample_values": [
-            "高等数学",
-            "大学英语",
-            "计算机基础"
-          ]
-        },
-        {
-          "name": "credit",
-          "type": "decimal(3,1)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "credit"
-          ],
-          "sample_values": [
-            "4.0",
-            "3.0",
-            "3.5"
-          ]
-        },
-        {
-          "name": "teacher",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "teacher"
-          ],
-          "sample_values": [
-            "王教授",
-            "李教授",
-            "张教授"
-          ]
-        },
-        {
-          "name": "course_type",
-          "type": "enum('必修','选修','通识')",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "course_type",
-            "course类型"
-          ],
-          "sample_values": [
-            "必修",
-            "选修",
-            "通识"
-          ]
-        }
-      ],
-      "foreign_keys": [],
-      "row_count": 10
-    },
-    {
-      "name": "major",
-      "description": "",
-      "columns": [
-        {
-          "name": "major_id",
+          "name": "customer_id",
           "type": "int(11)",
           "primary_key": true,
           "not_null": true,
           "description": "",
           "aliases": [
-            "major_id",
-            "major编号"
+            "客户编号",
+            "customer_id"
           ],
           "sample_values": [
             1,
             2,
             3
-          ]
-        },
-        {
-          "name": "major_name",
-          "type": "varchar(50)",
-          "primary_key": false,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "major_name",
-            "major名称"
-          ],
-          "sample_values": [
-            "软件工程",
-            "计算机科学与技术",
-            "人工智能"
-          ]
-        },
-        {
-          "name": "college_id",
-          "type": "int(11)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "college编号",
-            "college_id"
-          ],
-          "sample_values": [
-            1,
-            2,
-            3
-          ]
-        },
-        {
-          "name": "duration",
-          "type": "int(11)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "duration"
-          ],
-          "sample_values": [
-            4
-          ]
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "college_id",
-          "references_table": "college",
-          "references_column": "college_id"
-        }
-      ],
-      "row_count": 10
-    },
-    {
-      "name": "score",
-      "description": "",
-      "columns": [
-        {
-          "name": "score_id",
-          "type": "int(11)",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "score_id",
-            "score编号"
-          ],
-          "sample_values": [
-            1,
-            4,
-            7
-          ]
-        },
-        {
-          "name": "student_id",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "student编号",
-            "student_id"
-          ],
-          "sample_values": [
-            "2020001",
-            "2020002",
-            "2020003"
-          ]
-        },
-        {
-          "name": "course_id",
-          "type": "varchar(10)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "course_id",
-            "course编号"
-          ],
-          "sample_values": [
-            "CS101",
-            "CS102",
-            "CS103"
-          ]
-        },
-        {
-          "name": "score",
-          "type": "decimal(5,2)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "score"
-          ],
-          "sample_values": [
-            "85.50",
-            "78.00",
-            "92.00"
-          ]
-        },
-        {
-          "name": "semester",
-          "type": "varchar(20)",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "semester"
-          ],
-          "sample_values": [
-            "2022-2023-1",
-            "2022-2023-2",
-            "2023-2024-1"
-          ]
-        },
-        {
-          "name": "exam_date",
-          "type": "date",
-          "primary_key": false,
-          "not_null": false,
-          "description": "",
-          "aliases": [
-            "exam日期",
-            "exam_date"
-          ],
-          "sample_values": []
-        }
-      ],
-      "foreign_keys": [
-        {
-          "column": "course_id",
-          "references_table": "course",
-          "references_column": "course_id"
-        },
-        {
-          "column": "student_id",
-          "references_table": "student",
-          "references_column": "student_id"
-        }
-      ],
-      "row_count": 22
-    },
-    {
-      "name": "student",
-      "description": "",
-      "columns": [
-        {
-          "name": "student_id",
-          "type": "varchar(20)",
-          "primary_key": true,
-          "not_null": true,
-          "description": "",
-          "aliases": [
-            "student编号",
-            "student_id"
-          ],
-          "sample_values": [
-            "2021001",
-            "2021002",
-            "2022001"
           ]
         },
         {
           "name": "name",
-          "type": "varchar(20)",
+          "type": "varchar(50)",
           "primary_key": false,
           "not_null": true,
           "description": "",
           "aliases": [
-            "name",
-            "名称"
+            "名称",
+            "name"
           ],
           "sample_values": [
-            "林涛",
-            "何丽",
-            "高强"
+            "张三",
+            "李四",
+            "王芳"
           ]
         },
         {
@@ -393,30 +109,101 @@
           ]
         },
         {
-          "name": "birth_date",
+          "name": "phone",
+          "type": "varchar(20)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "phone",
+            "电话"
+          ],
+          "sample_values": [
+            "13800001001",
+            "13800001002",
+            "13800001003"
+          ]
+        },
+        {
+          "name": "email",
+          "type": "varchar(100)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "email",
+            "邮箱"
+          ],
+          "sample_values": [
+            "zhangsan@example.com",
+            "lisi@example.com",
+            "wangfang@example.com"
+          ]
+        },
+        {
+          "name": "address",
+          "type": "varchar(200)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "地址",
+            "address"
+          ],
+          "sample_values": [
+            "北京市朝阳区xx街道",
+            "上海市浦东新区xx路",
+            "广州市天河区xx大道"
+          ]
+        },
+        {
+          "name": "register_date",
           "type": "date",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "生日日期",
-            "birth_date"
+            "register日期",
+            "register_date"
           ],
           "sample_values": [
-            "2001-03-04",
-            "2001-09-18",
-            "2001-06-30"
+            "2023-01-15",
+            "2023-03-20",
+            "2023-05-10"
           ]
         },
         {
-          "name": "major_id",
-          "type": "int(11)",
+          "name": "member_level",
+          "type": "enum('普通','银卡','金卡','钻石')",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "major_id",
-            "major编号"
+            "member_level"
+          ],
+          "sample_values": [
+            "金卡",
+            "银卡",
+            "钻石"
+          ]
+        }
+      ],
+      "foreign_keys": [],
+      "row_count": 10
+    },
+    {
+      "name": "order_item",
+      "description": "",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "int(11)",
+          "primary_key": true,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "item_id",
+            "item编号"
           ],
           "sample_values": [
             1,
@@ -425,272 +212,584 @@
           ]
         },
         {
-          "name": "enrollment_year",
+          "name": "order_id",
           "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "enrollment_year"
+            "order_id",
+            "订单编号"
           ],
           "sample_values": [
-            2020,
-            2021,
-            2022
+            1,
+            2,
+            3
           ]
         },
         {
-          "name": "phone",
-          "type": "varchar(20)",
+          "name": "product_id",
+          "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "电话",
-            "phone"
+            "product_id",
+            "产品编号"
           ],
           "sample_values": [
-            "13800138016",
-            "13800138017",
-            "13800138018"
+            1,
+            2,
+            4
           ]
         },
         {
-          "name": "email",
-          "type": "varchar(50)",
+          "name": "quantity",
+          "type": "int(11)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "邮箱",
-            "email"
+            "数量",
+            "quantity"
           ],
           "sample_values": [
-            "lintao@stu.edu",
-            "heli@stu.edu",
-            "gaoqiang@stu.edu"
+            1,
+            2
           ]
         },
         {
-          "name": "hometown",
-          "type": "varchar(50)",
+          "name": "unit_price",
+          "type": "decimal(10,2)",
           "primary_key": false,
           "not_null": false,
           "description": "",
           "aliases": [
-            "hometown"
+            "unit_price",
+            "单位价格"
           ],
           "sample_values": [
-            "南京",
-            "武汉",
-            "成都"
+            "8999.00",
+            "99.00",
+            "12999.00"
+          ]
+        },
+        {
+          "name": "subtotal",
+          "type": "decimal(10,2)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "subtotal"
+          ],
+          "sample_values": [
+            "8999.00",
+            "198.00",
+            "12999.00"
           ]
         }
       ],
       "foreign_keys": [
         {
-          "column": "major_id",
-          "references_table": "major",
-          "references_column": "major_id"
+          "column": "order_id",
+          "references_table": "orders",
+          "references_column": "order_id"
+        },
+        {
+          "column": "product_id",
+          "references_table": "product",
+          "references_column": "product_id"
         }
       ],
-      "row_count": 30
+      "row_count": 12
+    },
+    {
+      "name": "orders",
+      "description": "",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "int(11)",
+          "primary_key": true,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "order_id",
+            "订单编号"
+          ],
+          "sample_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "customer_id",
+          "type": "int(11)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "客户编号",
+            "customer_id"
+          ],
+          "sample_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "order_date",
+          "type": "datetime",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "订单日期",
+            "order_date"
+          ],
+          "sample_values": [
+            "2024-01-20 10:30:00",
+            "2024-02-15 14:20:00",
+            "2024-02-10 09:15:00"
+          ]
+        },
+        {
+          "name": "total_amount",
+          "type": "decimal(10,2)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "总计金额",
+            "total_amount"
+          ],
+          "sample_values": [
+            "8999.00",
+            "198.00",
+            "12999.00"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum('待付款','已付款','已发货','已完成','已取消')",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "status"
+          ],
+          "sample_values": [
+            "已完成",
+            "已发货",
+            "已付款"
+          ]
+        },
+        {
+          "name": "payment_method",
+          "type": "enum('支付宝','微信','银行卡','现金')",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "payment_method"
+          ],
+          "sample_values": [
+            "支付宝",
+            "微信",
+            "银行卡"
+          ]
+        },
+        {
+          "name": "shipping_address",
+          "type": "varchar(200)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "shipping地址",
+            "shipping_address"
+          ],
+          "sample_values": [
+            "北京市朝阳区xx街道",
+            "上海市浦东新区xx路",
+            "广州市天河区xx大道"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "customer_id",
+          "references_table": "customer",
+          "references_column": "customer_id"
+        }
+      ],
+      "row_count": 12
+    },
+    {
+      "name": "product",
+      "description": "",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "int(11)",
+          "primary_key": true,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "product_id",
+            "产品编号"
+          ],
+          "sample_values": [
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "name": "product_name",
+          "type": "varchar(200)",
+          "primary_key": false,
+          "not_null": true,
+          "description": "",
+          "aliases": [
+            "产品名称",
+            "product_name"
+          ],
+          "sample_values": [
+            "iPhone 15 Pro",
+            "华为 Mate 60 Pro",
+            "小米 14"
+          ]
+        },
+        {
+          "name": "category_id",
+          "type": "int(11)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "category_id",
+            "category编号"
+          ],
+          "sample_values": [
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "name": "price",
+          "type": "decimal(10,2)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "价格",
+            "price"
+          ],
+          "sample_values": [
+            "8999.00",
+            "6999.00",
+            "3999.00"
+          ]
+        },
+        {
+          "name": "stock",
+          "type": "int(11)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "stock"
+          ],
+          "sample_values": [
+            50,
+            80,
+            120
+          ]
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "description"
+          ],
+          "sample_values": [
+            "苹果最新款手机",
+            "华为旗舰手机",
+            "小米数字旗舰"
+          ]
+        },
+        {
+          "name": "brand",
+          "type": "varchar(50)",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "brand"
+          ],
+          "sample_values": [
+            "Apple",
+            "HUAWEI",
+            "Xiaomi"
+          ]
+        },
+        {
+          "name": "create_time",
+          "type": "datetime",
+          "primary_key": false,
+          "not_null": false,
+          "description": "",
+          "aliases": [
+            "create_time",
+            "create时间"
+          ],
+          "sample_values": [
+            "2024-01-15 10:00:00",
+            "2024-01-10 09:00:00",
+            "2024-02-01 14:00:00"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "column": "category_id",
+          "references_table": "category",
+          "references_column": "category_id"
+        }
+      ],
+      "row_count": 12
     }
   ],
   "table_list": [
-    "college",
-    "course",
-    "major",
-    "score",
-    "student"
+    "category",
+    "customer",
+    "order_item",
+    "orders",
+    "product"
   ],
   "field_index": {
-    "college_id": [
+    "category_id": [
       {
-        "table": "college",
-        "column": "college_id",
+        "table": "category",
+        "column": "category_id",
         "type": "int(11)"
       },
       {
-        "table": "major",
-        "column": "college_id",
+        "table": "product",
+        "column": "category_id",
         "type": "int(11)"
       }
     ],
-    "college_name": [
+    "category_name": [
       {
-        "table": "college",
-        "column": "college_name",
+        "table": "category",
+        "column": "category_name",
         "type": "varchar(50)"
       }
     ],
-    "dean": [
+    "parent_id": [
       {
-        "table": "college",
-        "column": "dean",
-        "type": "varchar(20)"
-      }
-    ],
-    "established_year": [
-      {
-        "table": "college",
-        "column": "established_year",
+        "table": "category",
+        "column": "parent_id",
         "type": "int(11)"
       }
     ],
-    "course_id": [
+    "customer_id": [
       {
-        "table": "course",
-        "column": "course_id",
-        "type": "varchar(10)"
-      },
-      {
-        "table": "score",
-        "column": "course_id",
-        "type": "varchar(10)"
-      }
-    ],
-    "course_name": [
-      {
-        "table": "course",
-        "column": "course_name",
-        "type": "varchar(50)"
-      }
-    ],
-    "credit": [
-      {
-        "table": "course",
-        "column": "credit",
-        "type": "decimal(3,1)"
-      }
-    ],
-    "teacher": [
-      {
-        "table": "course",
-        "column": "teacher",
-        "type": "varchar(20)"
-      }
-    ],
-    "course_type": [
-      {
-        "table": "course",
-        "column": "course_type",
-        "type": "enum('必修','选修','通识')"
-      }
-    ],
-    "major_id": [
-      {
-        "table": "major",
-        "column": "major_id",
+        "table": "customer",
+        "column": "customer_id",
         "type": "int(11)"
       },
       {
-        "table": "student",
-        "column": "major_id",
+        "table": "orders",
+        "column": "customer_id",
         "type": "int(11)"
-      }
-    ],
-    "major_name": [
-      {
-        "table": "major",
-        "column": "major_name",
-        "type": "varchar(50)"
-      }
-    ],
-    "duration": [
-      {
-        "table": "major",
-        "column": "duration",
-        "type": "int(11)"
-      }
-    ],
-    "score_id": [
-      {
-        "table": "score",
-        "column": "score_id",
-        "type": "int(11)"
-      }
-    ],
-    "student_id": [
-      {
-        "table": "score",
-        "column": "student_id",
-        "type": "varchar(20)"
-      },
-      {
-        "table": "student",
-        "column": "student_id",
-        "type": "varchar(20)"
-      }
-    ],
-    "score": [
-      {
-        "table": "score",
-        "column": "score",
-        "type": "decimal(5,2)"
-      }
-    ],
-    "semester": [
-      {
-        "table": "score",
-        "column": "semester",
-        "type": "varchar(20)"
-      }
-    ],
-    "exam_date": [
-      {
-        "table": "score",
-        "column": "exam_date",
-        "type": "date"
       }
     ],
     "name": [
       {
-        "table": "student",
+        "table": "customer",
         "column": "name",
-        "type": "varchar(20)"
+        "type": "varchar(50)"
       }
     ],
     "gender": [
       {
-        "table": "student",
+        "table": "customer",
         "column": "gender",
         "type": "enum('男','女')"
       }
     ],
-    "birth_date": [
-      {
-        "table": "student",
-        "column": "birth_date",
-        "type": "date"
-      }
-    ],
-    "enrollment_year": [
-      {
-        "table": "student",
-        "column": "enrollment_year",
-        "type": "int(11)"
-      }
-    ],
     "phone": [
       {
-        "table": "student",
+        "table": "customer",
         "column": "phone",
         "type": "varchar(20)"
       }
     ],
     "email": [
       {
-        "table": "student",
+        "table": "customer",
         "column": "email",
+        "type": "varchar(100)"
+      }
+    ],
+    "address": [
+      {
+        "table": "customer",
+        "column": "address",
+        "type": "varchar(200)"
+      }
+    ],
+    "register_date": [
+      {
+        "table": "customer",
+        "column": "register_date",
+        "type": "date"
+      }
+    ],
+    "member_level": [
+      {
+        "table": "customer",
+        "column": "member_level",
+        "type": "enum('普通','银卡','金卡','钻石')"
+      }
+    ],
+    "item_id": [
+      {
+        "table": "order_item",
+        "column": "item_id",
+        "type": "int(11)"
+      }
+    ],
+    "order_id": [
+      {
+        "table": "order_item",
+        "column": "order_id",
+        "type": "int(11)"
+      },
+      {
+        "table": "orders",
+        "column": "order_id",
+        "type": "int(11)"
+      }
+    ],
+    "product_id": [
+      {
+        "table": "order_item",
+        "column": "product_id",
+        "type": "int(11)"
+      },
+      {
+        "table": "product",
+        "column": "product_id",
+        "type": "int(11)"
+      }
+    ],
+    "quantity": [
+      {
+        "table": "order_item",
+        "column": "quantity",
+        "type": "int(11)"
+      }
+    ],
+    "unit_price": [
+      {
+        "table": "order_item",
+        "column": "unit_price",
+        "type": "decimal(10,2)"
+      }
+    ],
+    "subtotal": [
+      {
+        "table": "order_item",
+        "column": "subtotal",
+        "type": "decimal(10,2)"
+      }
+    ],
+    "order_date": [
+      {
+        "table": "orders",
+        "column": "order_date",
+        "type": "datetime"
+      }
+    ],
+    "total_amount": [
+      {
+        "table": "orders",
+        "column": "total_amount",
+        "type": "decimal(10,2)"
+      }
+    ],
+    "status": [
+      {
+        "table": "orders",
+        "column": "status",
+        "type": "enum('待付款','已付款','已发货','已完成','已取消')"
+      }
+    ],
+    "payment_method": [
+      {
+        "table": "orders",
+        "column": "payment_method",
+        "type": "enum('支付宝','微信','银行卡','现金')"
+      }
+    ],
+    "shipping_address": [
+      {
+        "table": "orders",
+        "column": "shipping_address",
+        "type": "varchar(200)"
+      }
+    ],
+    "product_name": [
+      {
+        "table": "product",
+        "column": "product_name",
+        "type": "varchar(200)"
+      }
+    ],
+    "price": [
+      {
+        "table": "product",
+        "column": "price",
+        "type": "decimal(10,2)"
+      }
+    ],
+    "stock": [
+      {
+        "table": "product",
+        "column": "stock",
+        "type": "int(11)"
+      }
+    ],
+    "description": [
+      {
+        "table": "product",
+        "column": "description",
+        "type": "text"
+      }
+    ],
+    "brand": [
+      {
+        "table": "product",
+        "column": "brand",
         "type": "varchar(50)"
       }
     ],
-    "hometown": [
+    "create_time": [
       {
-        "table": "student",
-        "column": "hometown",
-        "type": "varchar(50)"
+        "table": "product",
+        "column": "create_time",
+        "type": "datetime"
       }
     ]
   }

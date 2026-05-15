@@ -36,7 +36,7 @@ def validate_sql_node(state: NL2SQLState) -> NL2SQLState:
     """
     candidate_sql = state.get("candidate_sql")
     
-    print(f"\n=== Validate SQL Node (M4) ===")
+    print(f"\n=== Validate SQL Node ===")
     print(f"SQL: {candidate_sql}")
     
     # Initialize validation result
@@ -60,7 +60,7 @@ def validate_sql_node(state: NL2SQLState) -> NL2SQLState:
     
     # Check if sqlglot is available
     if not SQLGLOT_AVAILABLE:
-        print("⚠️  sqlglot not available, skipping validation")
+        print(" sqlglot not available, skipping validation")
         validation_result["valid"] = True  # Assume valid if can't validate
         validation_result["warnings"].append("sqlglot not available, validation skipped")
         return {

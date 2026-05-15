@@ -1,5 +1,5 @@
 """
-测试 SQL Sandbox (M5) 功能
+测试 SQL Sandbox  功能
 验证安全防护与权限隔离功能是否正常工作
 """
 import sys
@@ -189,16 +189,16 @@ def test_database_integration():
     # 先测试数据库连接
     try:
         if not db_client.test_connection():
-            print("⚠️  数据库连接失败，跳过集成测试")
-            print("  提示: 这可能是环境配置问题，不影响 M5 功能验证")
+            print("数据库连接失败，跳过集成测试")
+            print("  提示: 这可能是环境配置问题，不影响功能验证")
             print("  如需测试，请确保:")
             print("    1. MySQL 服务正在运行")
             print("    2. .env 文件中的数据库配置正确")
             print("    3. 如使用 MySQL 8.0+，可能需要安装: pip install cryptography")
             return None  # 跳过但不算失败
     except Exception as e:
-        print(f"⚠️  数据库连接测试失败: {e}")
-        print("  提示: 这可能是环境配置问题，不影响 M5 功能验证")
+        print(f" 数据库连接测试失败: {e}")
+        print("  提示: 这可能是环境配置问题，不影响功能验证")
         return None
     
     try:
@@ -256,9 +256,9 @@ def test_database_integration():
     except Exception as e:
         error_msg = str(e)
         if "cryptography" in error_msg.lower():
-            print(f"⚠️  数据库连接需要 cryptography 包")
+            print(f" 数据库连接需要 cryptography 包")
             print(f"  请运行: pip install cryptography")
-            print(f"  提示: 这是环境配置问题，不影响 M5 功能验证")
+            print(f"  提示: 这是环境配置问题，不影响功能验证")
             return None  # 跳过但不算失败
         else:
             print(f"✗ 数据库集成测试错误: {e}")
@@ -306,7 +306,7 @@ def test_security_logging():
 def main():
     """主测试函数"""
     print("\n" + "=" * 60)
-    print("SQL Sandbox (M5) 功能测试")
+    print("SQL Sandbox  功能测试")
     print("=" * 60)
     
     results = {}

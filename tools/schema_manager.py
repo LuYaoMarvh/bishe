@@ -215,7 +215,7 @@ class SchemaManager:
         except Exception as e:
             pass  # 如果查询失败，继续使用推断方法
         
-        # 方法2: 如果数据库没有外键约束，基于字段名模式推断（M8）
+        # 方法2: 如果数据库没有外键约束，基于字段名模式推断
         if not foreign_keys:
             foreign_keys = self._infer_foreign_keys(table_name)
         
@@ -223,7 +223,7 @@ class SchemaManager:
     
     def _infer_foreign_keys(self, table_name: str) -> List[Dict]:
         """
-        基于字段名模式推断外键关系（M8）
+        基于字段名模式推断外键关系
         
         规则：
         1. 如果字段名以"Id"结尾（如CustomerId），且存在对应的表（如customer），则推断为外键
@@ -695,7 +695,7 @@ class SchemaManager:
             # 获取外键信息（如果schema中没有，则推断）
             foreign_keys = table.get("foreign_keys", [])
             if not foreign_keys:
-                # M8: 动态推断外键
+                # 动态推断外键
                 foreign_keys = self._infer_foreign_keys(table_name)
             
             # 添加出边（当前表的外键指向其他表）
@@ -847,7 +847,7 @@ class SchemaManager:
         if table1_obj:
             foreign_keys = table1_obj.get("foreign_keys", [])
             if not foreign_keys:
-                # M8: 动态推断外键
+                # 动态推断外键
                 foreign_keys = self._infer_foreign_keys(table1)
             
             # 检查table1的外键是否指向table2
@@ -869,7 +869,7 @@ class SchemaManager:
         if table2_obj:
             foreign_keys = table2_obj.get("foreign_keys", [])
             if not foreign_keys:
-                # M8: 动态推断外键
+                # 动态推断外键
                 foreign_keys = self._infer_foreign_keys(table2)
             
             # 检查table2的外键是否指向table1

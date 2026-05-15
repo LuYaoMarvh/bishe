@@ -1,5 +1,5 @@
 """
-测试 Multi-Table JOIN (M8) 功能
+测试 Multi-Table JOIN  功能
 验证多表联结SQL生成功能是否正常工作
 """
 import sys
@@ -307,7 +307,7 @@ def test_complex_join_scenarios():
 def main():
     """运行所有测试"""
     print("=" * 60)
-    print("M8 Multi-Table JOIN 功能测试")
+    print("Multi-Table JOIN 功能测试")
     print("=" * 60)
     
     results = []

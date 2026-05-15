@@ -16,7 +16,7 @@ sys.path.insert(0, str(project_root))
 
 from graphs.state import NL2SQLState
 from tools.llm_client import llm_client
-from tools.schema_manager import schema_manager  # M3: 新增 Schema Manager
+from tools.schema_manager import schema_manager  # 新增 Schema Manager
 from graphs.utils.performance import monitor_performance
 
 def load_prompt_template(template_name: str) -> str:
@@ -193,11 +193,11 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     Now uses context memory for better SQL generation.
     """
     question = state.get("question", "")
-    critique = state.get("critique")  # M4: Get critique if available
-    regeneration_count = state.get("regeneration_count", 0)  # M4: Track retries
+    critique = state.get("critique")  # Get critique if available
+    regeneration_count = state.get("regeneration_count", 0)  #  Track retries
     session_id = state.get("session_id")
 
-    print(f"\n=== Generate SQL Node (M3/M4/M8/M9.5/M9.75) ===")
+    print(f"\n=== Generate SQL Node  ===")
     print(f"Question: {question}")
     
     #获取上下文记忆管理器
@@ -277,10 +277,10 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
     # 检测多表查询并生成JOIN路径建议
     join_suggestions = ""
     if relevant_tables and len(relevant_tables) >= 2:
-        print(f"M8: Detected multi-table query ({len(relevant_tables)} tables)")
+        print(f"Detected multi-table query ({len(relevant_tables)} tables)")
         join_suggestions = schema_manager.format_join_suggestions(relevant_tables)
         if join_suggestions:
-            print("M8: Generated JOIN path suggestions")
+            print(" Generated JOIN path suggestions")
             # 打印JOIN路径摘要
             join_steps = schema_manager.find_join_path(relevant_tables)
             if join_steps:
@@ -330,7 +330,6 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
             context_history=context_text if context_text else ""
         )
     else:
-        # Original prompt with M8 JOIN suggestions and M9.75 context
         if join_suggestions:
             # Insert JOIN suggestions before the user question
             prompt_template_with_join = prompt_template.replace(
@@ -384,7 +383,7 @@ def generate_sql_node(state: NL2SQLState) -> NL2SQLState:
             "is_chat_response": False,  # 标记为SQL查询
             "chat_response": None,
             "sql_generated_at": datetime.now().isoformat(),
-            "regeneration_count": new_regeneration_count,  # M4: Track retries
+            "regeneration_count": new_regeneration_count,  #  Track retries
             "critique": None,  # Clear critique after using it
             "dialog_history": context_manager.get_all_history() if context_manager else state.get("dialog_history", [])
         }

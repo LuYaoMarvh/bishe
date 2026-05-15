@@ -28,16 +28,16 @@ class NL2SQLChat:
         self.current_state: Optional[NL2SQLState] = None
         self.show_sql = False  # 是否显示SQL（默认隐藏）
         
-        # M9.75: 初始化上下文记忆管理器
+        # 初始化上下文记忆管理器
         from graphs.utils.context_memory import get_context_manager
         self.context_manager = get_context_manager(self.session_id, max_history=10)
         
     def print_welcome(self):
         """打印欢迎信息"""
         print("\n" + "=" * 60)
-        print("🤖 NL2SQL 自然语言查询助手")
+        print(" NL2SQL 自然语言查询助手")
         print("=" * 60)
-        print("💡 提示：")
+        print(" 提示：")
         print("  - 直接用自然语言提问，例如：'查询每个客户的订单数量'")
         print("  - 也可以进行普通对话，例如：'你好'、'你是谁'")
         print("  - 支持多轮对话，可以使用'那'、'他们'等指代词")
@@ -61,7 +61,7 @@ class NL2SQLChat:
         print("    • 你好")
         print("    • 你是谁")
         print("    • 如何使用这个系统")
-        print("\n  多轮对话（M9.75: 上下文记忆）：")
+        print("\n  多轮对话")
         print("    • 查询每个客户的订单数量")
         print("    • 那销售额最高的客户是谁？")
         print("    • 他的订单详情呢？")
@@ -141,7 +141,7 @@ class NL2SQLChat:
     def process_query(self, question: str, clarification_answer: Optional[str] = None):
         """处理查询（静默模式，不显示中间步骤）"""
         try:
-            # M9.75: 获取当前对话历史
+            # 获取当前对话历史
             conversation_history = self.context_manager.get_all_history()
             
             # 重定向所有输出到空设备，隐藏中间步骤
@@ -153,12 +153,12 @@ class NL2SQLChat:
                     session_id=self.session_id,
                     user_id=self.user_id,
                     clarification_answer=clarification_answer,
-                    conversation_history=conversation_history  # M9.75: 传递历史上下文
+                    conversation_history=conversation_history  # 传递历史上下文
                 )
             
             self.current_state = result
             
-            # M9.75: 更新上下文管理器（从result中获取最新的历史）
+            # 更新上下文管理器（从result中获取最新的历史）
             updated_history = result.get('dialog_history', [])
             if updated_history:
                 # 同步历史到上下文管理器
@@ -187,14 +187,14 @@ class NL2SQLChat:
                     self.current_state = result
                     # 继续执行后续的检查和显示逻辑
             
-            # M9.5: 检查是否是聊天响应
+            #检查是否是聊天响应
             is_chat_response = result.get('is_chat_response', False)
             chat_response = result.get('chat_response')
             
             if is_chat_response and chat_response:
-                # M9.5: 直接显示聊天回复，跳过SQL执行流程
+                # 直接显示聊天回复，跳过SQL执行流程
                 print("\n" + "=" * 60)
-                print("💬 回复")
+                print(" 回复")
                 print("=" * 60)
                 print(chat_response)
                 print("=" * 60)
@@ -203,7 +203,7 @@ class NL2SQLChat:
             # 检查执行结果（仅SQL查询）
             execution_result = result.get('execution_result')
             if not execution_result:
-                print("❌ 查询执行失败：未获取到执行结果")
+                print("查询执行失败：未获取到执行结果")
                 return
             
             if not execution_result.get('ok'):
@@ -215,7 +215,7 @@ class NL2SQLChat:
             answer = result.get('answer')
             if answer:
                 print("\n" + "=" * 60)
-                print("📊 查询结果")
+                print("查询结果")
                 print("=" * 60)
                 print(self.format_answer(answer))
                 print("=" * 60)
@@ -226,7 +226,7 @@ class NL2SQLChat:
                 rows = execution_result.get('rows', [])
                 
                 print("\n" + "=" * 60)
-                print("📊 查询结果")
+                print("查询结果")
                 print("=" * 60)
                 
                 if row_count == 0:
@@ -250,13 +250,13 @@ class NL2SQLChat:
             if self.show_sql:
                 sql = result.get('candidate_sql')
                 if sql:
-                    print(f"\n💻 执行的SQL查询：")
+                    print(f"\n 执行的SQL查询：")
                     print(f"   {sql}")
                     print()
             
         except Exception as e:
-            print(f"\n❌ 发生错误：{str(e)}")
-            print("💡 提示：请检查问题描述是否清晰，或联系管理员")
+            print(f"\n 发生错误：{str(e)}")
+            print(" 提示：请检查问题描述是否清晰，或联系管理员")
     
     def run(self):
         """运行聊天程序"""
@@ -265,7 +265,7 @@ class NL2SQLChat:
         while True:
             try:
                 # 获取用户输入
-                user_input = input("💬 请输入您的问题: ").strip()
+                user_input = input(" 请输入您的问题: ").strip()
                 
                 if not user_input:
                     continue
@@ -273,12 +273,12 @@ class NL2SQLChat:
                 # 安全修复：输入验证 - 限制输入长度，防止DoS攻击
                 MAX_INPUT_LENGTH = 2000
                 if len(user_input) > MAX_INPUT_LENGTH:
-                    print(f"\n⚠️  输入过长，请控制在{MAX_INPUT_LENGTH}个字符以内\n")
+                    print(f"\n 输入过长，请控制在{MAX_INPUT_LENGTH}个字符以内\n")
                     continue
                 
                 # 处理命令
                 if user_input.lower() in ['quit', 'exit', 'q', '退出']:
-                    print("\n👋 感谢使用，再见！\n")
+                    print("\n感谢使用，再见！\n")
                     break
                 
                 elif user_input.lower() == 'help':
@@ -290,21 +290,21 @@ class NL2SQLChat:
                 elif user_input.lower() == 'sql':
                     self.show_sql = not self.show_sql
                     status = "显示" if self.show_sql else "隐藏"
-                    print(f"\n💡 SQL查询已{status}\n")
+                    print(f"\n SQL查询已{status}\n")
                 
                 else:
                     # 作为问题处理
-                    print(f"\n🔍 正在处理：{user_input}...")
+                    print(f"\n 正在处理：{user_input}...")
                     # 处理查询（内部会重定向输出，隐藏中间步骤）
                     self.process_query(user_input)
                     print()  # 空行分隔
                 
             except KeyboardInterrupt:
-                print("\n\n⚠️  操作已中断")
-                print("💡 提示：输入 'quit' 退出程序\n")
+                print("\n\n  操作已中断")
+                print(" 提示：输入 'quit' 退出程序\n")
                 continue
             except EOFError:
-                print("\n\n👋 感谢使用，再见！\n")
+                print("\n\n 感谢使用，再见！\n")
                 break
             except Exception as e:
                 print(f"\n❌ 发生错误：{str(e)}")
@@ -320,15 +320,15 @@ def main():
         
         # 测试连接
         if not db_client.test_connection():
-            print("❌ 数据库连接失败，请检查配置")
+            print(" 数据库连接失败，请检查配置")
             return 1
         
         # 测试LLM
         try:
             llm_client.chat(prompt="test")
         except Exception as e:
-            print(f"❌ LLM连接失败：{e}")
-            print("💡 请检查LLM配置（.env文件）")
+            print(f" LLM连接失败：{e}")
+            print("请检查LLM配置（.env文件）")
             return 1
         
         # 启动聊天程序
@@ -338,11 +338,11 @@ def main():
         return 0
         
     except ImportError as e:
-        print(f"❌ 导入错误：{e}")
-        print("💡 请确保已安装所有依赖：pip install -r requirements.txt")
+        print(f" 导入错误：{e}")
+        print(" 请确保已安装所有依赖：pip install -r requirements.txt")
         return 1
     except Exception as e:
-        print(f"❌ 启动失败：{e}")
+        print(f" 启动失败：{e}")
         import traceback
         traceback.print_exc()
         return 1

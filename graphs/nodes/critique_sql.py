@@ -45,7 +45,7 @@ def critique_sql_node(state: NL2SQLState) -> NL2SQLState:
     validation_errors = state.get("validation_errors", [])
     validation_result = state.get("validation_result", {})
     
-    print(f"\n=== Critique SQL Node (M4) ===")
+    print(f"\n=== Critique SQL Node ===")
     print(f"Analyzing {len(validation_errors)} error(s)...")
     
     # Load critique prompt template
@@ -55,7 +55,7 @@ def critique_sql_node(state: NL2SQLState) -> NL2SQLState:
     except FileNotFoundError:
         # Fallback critique if template not found
         critique = f"SQL Validation Errors:\n" + "\n".join(f"- {e}" for e in validation_errors)
-        print("⚠️  Critique template not found, using fallback")
+        print(" Critique template not found, using fallback")
         return {
             **state,
             "critique": critique

@@ -135,7 +135,7 @@ def should_handle_chat_response(state: NL2SQLState) -> str:
         )
         
         if clarification_check.get("needs_clarification", False):
-            print(f"⚠️  需要澄清: {clarification_check.get('reasons', [])}")
+            print(f" 需要澄清: {clarification_check.get('reasons', [])}")
             return "clarify"
     
     return "continue"
@@ -159,7 +159,7 @@ def echo_node(state: NL2SQLState) -> NL2SQLState:
     # Show clarification question if needed
     if state.get('needs_clarification') and state.get('clarification_question'):
         print(f"\n{'='*50}")
-        print("⚠️  需要澄清问题")
+        print(" 需要澄清问题")
         print(f"{'='*50}")
         print(f"澄清问题: {state.get('clarification_question')}")
         if state.get('clarification_options'):
@@ -314,10 +314,10 @@ def run_query(question: str, session_id: str = None, user_id: str = None,
             context_manager.conversation_history.append(entry)
         context_manager._trim_history()
     
-    # 添加当前问题到历史（如果还没有添加）
+    # 添加当前问题到历史
     # 注意：这里先不添加，等确认是查询意图后再添加
     
-    # 获取当前历史（用于初始化state）
+    # 获取当前历史
     current_history = context_manager.get_all_history()
 
     # Build graph

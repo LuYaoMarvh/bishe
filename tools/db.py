@@ -65,7 +65,7 @@ class DatabaseClient:
             - columns: list - column names
             - row_count: int - number of rows returned
             - error: str - error message if failed
-            - code: str - error code if blocked by sandbox (M5)
+            - code: str - error code if blocked by sandbox
         """
         result = {
             "ok": False,
@@ -73,7 +73,7 @@ class DatabaseClient:
             "columns": [],
             "row_count": 0,
             "error": None,
-            "code": None  # M5: Security error code
+            "code": None  #  Security error code
         }
 
         if not sql or not sql.strip():

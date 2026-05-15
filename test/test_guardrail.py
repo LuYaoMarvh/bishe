@@ -1,5 +1,5 @@
 """
-测试 SQL Guardrail (M4) 功能
+测试 SQL Guardrail  功能
 验证 SQL 校验与自修复功能是否正常工作
 """
 import sys
@@ -348,7 +348,7 @@ def test_full_guardrail_flow():
 def main():
     """主测试函数"""
     print("\n" + "=" * 60)
-    print("SQL Guardrail (M4) 功能测试")
+    print("SQL Guardrail  功能测试")
     print("=" * 60)
     
     results = {}

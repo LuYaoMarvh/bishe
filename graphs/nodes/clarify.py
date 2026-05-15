@@ -273,7 +273,7 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
         reasons_text = "\n".join(f"- {r}" for r in clarification_check["reasons"])
         clarification_type = clarification_check["clarification_type"]
         
-        # M9.75: 使用上下文记忆管理器格式化历史上下文
+        # 使用上下文记忆管理器格式化历史上下文
         if context_manager:
             history_text = context_manager.format_context_for_clarification(
                 question=question,
@@ -311,7 +311,7 @@ def clarify_node(state: NL2SQLState) -> NL2SQLState:
             for i, opt in enumerate(clarification_options, 1):
                 print(f"    {i}. {opt}")
         
-        # M9.75: 使用上下文记忆管理器更新对话历史
+        # 使用上下文记忆管理器更新对话历史
         if context_manager:
             context_manager.add_clarification(
                 clarification_question=clarification_question,

@@ -311,7 +311,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
             from graphs.utils.context_memory import get_context_manager
             context_manager = get_context_manager(session_id)
             
-            # 构建结果摘要（简化版，只保留必要信息，让LLM从对话历史和SQL中自己理解）
+            # 构建结果摘要
             result_summary = {
                 "row_count": execution_result.get("row_count", 0),
                 "columns": columns
@@ -333,7 +333,7 @@ def answer_builder_node(state: NL2SQLState) -> NL2SQLState:
             **state,
             "answer": answer,
             "answer_generated_at": datetime.now().isoformat(),
-            "dialog_history": updated_history  # M9.75: 更新对话历史
+            "dialog_history": updated_history  #  更新对话历史
         }
         
     except Exception as e:

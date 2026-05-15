@@ -26,31 +26,17 @@ class InteractiveTester:
         self.dialog_history = []
         self.current_state: Optional[NL2SQLState] = None
         
-        # M9.75: 初始化上下文记忆管理器
+        # 初始化上下文记忆管理器
         from graphs.utils.context_memory import get_context_manager
         self.context_manager = get_context_manager(self.session_id, max_history=10)
         
     def print_header(self):
         """打印欢迎信息"""
         print("\n" + "=" * 70)
-        print("🚀 NL2SQL 交互式测试工具")
+        print(" NL2SQL 交互式测试工具")
         print("=" * 70)
         print(f"会话ID: {self.session_id}")
         print(f"用户ID: {self.user_id}")
-        print("\n支持的功能:")
-        print("  - 自然语言转SQL查询")
-        print("  - 多轮对话澄清 (M7)")
-        print("  - SQL验证与自动修复 (M4)")
-        print("  - 多表JOIN生成 (M8)")
-        print("  - 自然语言答案生成 (M9)")
-        print("  - 安全加固与聊天支持 (M9.5)")
-        print("    * SQL注入防护")
-        print("    * 智能聊天响应识别")
-        print("    * 敏感信息保护")
-        print("  - 上下文记忆与澄清整合 (M9.75)")
-        print("    * 跨查询上下文记忆")
-        print("    * 基于上下文的智能澄清")
-        print("    * 指代词理解（那、他们、刚才等）")
         print("\n输入 'help' 查看命令，输入 'quit' 退出")
         print("=" * 70 + "\n")
     
@@ -85,11 +71,11 @@ class InteractiveTester:
     def display_state(self):
         """显示当前状态"""
         if not self.current_state:
-            print("⚠️  还没有执行过查询")
+            print(" 还没有执行过查询")
             return
         
         print("\n" + "=" * 70)
-        print("📊 当前状态")
+        print(" 当前状态")
         print("=" * 70)
         
         # 基本信息
@@ -141,7 +127,7 @@ class InteractiveTester:
         # 澄清信息
         needs_clarification = self.current_state.get('needs_clarification')
         if needs_clarification:
-            print(f"\n澄清状态: ⚠️  需要澄清")
+            print(f"\n澄清状态:   需要澄清")
             print(f"  问题: {self.current_state.get('clarification_question', 'N/A')}")
             print(f"  轮次: {self.current_state.get('clarification_count', 0)}/3")
         
@@ -150,46 +136,44 @@ class InteractiveTester:
     def display_sql(self):
         """显示最后生成的SQL"""
         if not self.current_state:
-            print("⚠️  还没有执行过查询")
+            print(" 还没有执行过查询")
             return
         
         sql = self.current_state.get('candidate_sql')
         if sql:
             print("\n" + "=" * 70)
-            print("📝 生成的SQL")
+            print("生成的SQL")
             print("=" * 70)
             print(sql)
             print("=" * 70 + "\n")
         else:
-            print("⚠️  还没有生成SQL")
+            print(" 还没有生成SQL")
     
     def display_answer(self):
         """显示最后生成的答案"""
         if not self.current_state:
-            print("⚠️  还没有执行过查询")
+            print(" 还没有执行过查询")
             return
         
         answer = self.current_state.get('answer')
         if answer:
             print("\n" + "=" * 70)
-            print("📊 自然语言答案")
+            print(" 自然语言答案")
             print("=" * 70)
             print(answer)
             print("=" * 70 + "\n")
         else:
-            print("⚠️  还没有生成答案")
+            print(" 还没有生成答案")
     
     def display_history(self):
-        """显示对话历史（M9.75: 使用上下文管理器的历史）"""
-        # M9.75: 使用上下文管理器的历史
         history = self.context_manager.get_all_history()
         
         if not history:
-            print("⚠️  对话历史为空")
+            print("  对话历史为空")
             return
         
         print("\n" + "=" * 70)
-        print("💬 对话历史 (M9.75: 上下文记忆)")
+        print("对话历史 ")
         print("=" * 70)
         
         for i, entry in enumerate(history, 1):
@@ -211,27 +195,27 @@ class InteractiveTester:
             # 根据类型显示不同的图标
             if role == 'user':
                 if entry_type == 'query':
-                    print(f"\n[{i}] 👤 用户查询 ({time_str})")
+                    print(f"\n[{i}]  用户查询 ({time_str})")
                 elif entry_type == 'clarification_answer':
-                    print(f"\n[{i}] 💬 澄清回答 ({time_str})")
+                    print(f"\n[{i}]  澄清回答 ({time_str})")
                 else:
-                    print(f"\n[{i}] 👤 用户 ({time_str})")
+                    print(f"\n[{i}]  用户 ({time_str})")
             elif role == 'assistant':
                 if entry_type == 'answer':
-                    print(f"\n[{i}] 🤖 系统答案 ({time_str})")
+                    print(f"\n[{i}]  系统答案 ({time_str})")
                     # 显示SQL（如果有）
                     sql = entry.get('sql')
                     if sql:
                         print(f"   SQL: {sql[:100]}..." if len(sql) > 100 else f"   SQL: {sql}")
                 elif entry_type == 'clarification':
-                    print(f"\n[{i}] ❓ 澄清问题 ({time_str})")
+                    print(f"\n[{i}]  澄清问题 ({time_str})")
                     options = entry.get('options', [])
                     if options:
                         print(f"   选项: {', '.join(options)}")
                 elif entry_type == 'chat':
-                    print(f"\n[{i}] 💬 聊天回复 ({time_str})")
+                    print(f"\n[{i}]  聊天回复 ({time_str})")
                 else:
-                    print(f"\n[{i}] 🤖 助手 ({time_str})")
+                    print(f"\n[{i}]  助手 ({time_str})")
             
             # 显示内容（截断长内容）
             if len(content) > 200:
@@ -243,9 +227,9 @@ class InteractiveTester:
         print("=" * 70 + "\n")
     
     def display_session_info(self):
-        """显示会话信息（M9.75: 包含上下文记忆信息）"""
+        """显示会话信息 包含上下文记忆信息"""
         print("\n" + "=" * 70)
-        print("🔍 会话信息")
+        print(" 会话信息")
         print("=" * 70)
         print(f"会话ID: {self.session_id}")
         print(f"用户ID: {self.user_id}")
@@ -313,10 +297,9 @@ class InteractiveTester:
     def run_query_interactive(self, question: str, clarification_answer: Optional[str] = None):
         """运行查询并处理交互"""
         print(f"\n{'=' * 70}")
-        print(f"🔍 处理查询: {question}")
+        print(f" 处理查询: {question}")
         print(f"{'=' * 70}\n")
-        
-            # M9.75: 获取当前对话历史（从上下文管理器）
+
         conversation_history = self.context_manager.get_all_history()
         
         # 记录用户问题（用于本地显示）
@@ -327,18 +310,18 @@ class InteractiveTester:
         })
         
         try:
-            # M9.75: 运行查询，传入历史上下文
+            #  运行查询，传入历史上下文
             result = run_query(
                 question=question,
                 session_id=self.session_id,
                 user_id=self.user_id,
                 clarification_answer=clarification_answer,
-                conversation_history=conversation_history  # M9.75: 传递历史上下文
+                conversation_history=conversation_history  #  传递历史上下文
             )
             
             self.current_state = result
             
-            # M9.75: 更新上下文管理器（从result中获取最新的历史）
+            # 更新上下文管理器（从result中获取最新的历史）
             updated_history = result.get('dialog_history', [])
             if updated_history:
                 # 同步历史到上下文管理器
@@ -357,10 +340,10 @@ class InteractiveTester:
                         'timestamp': datetime.now().isoformat()
                     })
                     
-                    # M9.75: 重新运行查询，带上澄清答案（历史会自动传递）
+                    # 重新运行查询，带上澄清答案（历史会自动传递）
                     return self.run_query_interactive(question, clarification_answer)
                 else:
-                    print("⚠️  跳过澄清，继续处理...")
+                    print("  跳过澄清，继续处理...")
             
             # 显示SQL
             sql = result.get('candidate_sql')
