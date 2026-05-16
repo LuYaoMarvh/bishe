@@ -31,7 +31,7 @@ def load_prompt_template(template_name: str) -> str:
 
 def check_if_needs_clarification(question: str, candidate_sql: Optional[str] = None) -> Dict[str, Any]:
     """
-    判断是否需要澄清的判据(修复版v2)
+    判断是否需要澄清的判据
 
     设计原则:
     1. 默认不澄清,只在真正模糊时才澄清(避免过度澄清)
